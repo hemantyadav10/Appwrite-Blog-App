@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, Container, Input } from '../components'
 import { useForm } from 'react-hook-form'
 import { PasswordIcon } from '../assets/index'
