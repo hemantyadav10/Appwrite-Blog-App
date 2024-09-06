@@ -9,13 +9,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ContentProvider } from './context/EditorContent.jsx';
 import PublicRoutes from './components/PublicRoutes.jsx';
-const Home = lazy(() => import('./pages/Home.jsx'))
+import Home from './pages/Home.jsx';
 const Login = lazy(() => import('./pages/LoginPage.jsx'))
 const Signup = lazy(() => import('./pages/SignupPage.jsx'))
 const EditorPage = lazy(() => import('./pages/EditorPage.jsx'))
 const BlogPage = lazy(() => import('./pages/BlogPage.jsx'))
 const Profile = lazy(() => import('./pages/Profile.jsx'))
-const Categories = lazy(() => import('./pages/ExploreBlogs.jsx'))
+import Categories from './pages/ExploreBlogs.jsx';
 const SideNavbar = lazy(() => import('./components/SideNavbar.jsx'))
 const ChangePassword = lazy(() => import('./components/ChangePassword.jsx'))
 const EditProfile = lazy(() => import('./components/EditProfile.jsx'))
