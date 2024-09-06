@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    h1 {
+        @apply text-[2em] font-bold my-[0.67em];
+    }
+
+    h2 {
+        @apply text-[1.5em] font-bold my-[0.83em];
+    }
+
+    h3 {
+        @apply text-[1.17em] my-4 font-bold;
+    }
+
+    h4 {
+        @apply text-[1em] font-bold my-[1.33em];
+    }
+
+    h5 {
+        @apply text-[0.83em] font-bold my-[1.67em];
+    }
+
+    h6 {
+        @apply text-[0.67em] font-bold my-[2.33em];
+    }
+
+    .color {
+        @apply text-[#1f1f1f] transition-colors dark:text-[#E6EDF3];
+    }
+    .medium_color {
+        @apply text-[#333333] transition-colors dark:text-[#d2d9df];
+    }
+
+    .light_color {
+        @apply text-gray-600 transition-colors dark:text-[#8d96a0];
+
+    }
+    .colored{
+        @apply text-[#1f1f1f] dark:text-indigo-300 transition-colors;
+    }
+
+
+}
