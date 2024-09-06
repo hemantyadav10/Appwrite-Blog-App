@@ -25,9 +25,11 @@ function ForgotPassword() {
         throw new Error('Email not registered')
       }
 
+      const resetUrl = import.meta.env.VITE_RESET_PASSWORD_URL;
+      
       const result = await account.createRecovery(
         data.email,
-        'http://localhost:5173/reset-password'
+        resetUrl
       );
       if (result) {
         toast.success('A reset link has been sent to your email.')
