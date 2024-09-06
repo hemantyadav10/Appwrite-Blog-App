@@ -14,9 +14,6 @@ function ResetPassword() {
   const secretKey = String(searchParams.get('secret'));
   const navigate = useNavigate();
 
-  useEffect(() => {
-    
-  }, [])
 
   const onSubmit = async (data) => {
     if (data.newPassword !== data.confirmPassword) return toast.error('Passwords do not match')
