@@ -48,7 +48,7 @@ function BlogPage() {
   }
 
   useEffect(() => {
-    if (!loading) {
+    if (!loading && blogData) {
       Prism.highlightAll(); // Trigger Prism syntax highlighting
     }
   }, [blogData, loading]);
@@ -89,7 +89,7 @@ function BlogPage() {
                 {blogData?.category || ''}
               </Button>
             </Link>
-            <p className='text-3xl font-bold leading-tight break-words md:leading-tight md:text-4xl color'>
+            <p className='text-3xl font-bold leading-tight break-words md:leading-tight md:text-4xl color '>
               {blogData?.title || ''}
             </p>
           </div>
@@ -156,7 +156,7 @@ function BlogPage() {
           <div className='italic text-left  text-lg sm:text-xl colored break-words border-l-4 p-4 bg-gray-50  dark:bg-[#171B21] dark:border-l-[#30363D]'>
             {blogData?.description}
           </div>
-          <div className='flex flex-col gap-4 text-base break-words medium_color sm:text-lg' dangerouslySetInnerHTML={{ __html: blogData?.content }} />
+          <div className='flex flex-col gap-4 text-base break-words color sm:text-lg' dangerouslySetInnerHTML={{ __html: blogData?.content }} />
           <div className='flex flex-wrap items-center gap-2 mt-10 font-semibold color'>
             <span>Tags: </span>
             {blogData?.tags?.map((tag, index) => (
