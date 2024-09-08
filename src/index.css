@@ -12,7 +12,7 @@
     }
 
     h3 {
-        @apply text-[1.17em] my-4 font-bold;
+        @apply text-[1.17em] my-4 font-bold leading-tight;
     }
 
     h4 {
@@ -48,16 +48,21 @@
         @apply max-w-[700px] w-full;
     }
 
-    .code-toolbar {
-        @apply text-xs;
+
+    code {
+        @apply bg-[#f2f2f2] p-1 dark:bg-[#1e293b] sm:text-sm color text-xs font-normal rounded-[4px] ;
     }
 
-    code{
-        @apply bg-[#f2f2f2] px-1 py-[2px] dark:bg-[#2d2d2d] medium_color;
+    pre {
+        @apply rounded-md;
     }
 
-    pre{
-        @apply  rounded-md ;
+    ul {
+        @apply list-disc list-inside;
+    }
+
+    ol {
+        @apply list-decimal list-inside;
     }
 
 }
