@@ -515,7 +515,7 @@ export const updateBlog = async (blog) => {
 
       if (!uploadedFile) throw Error;
 
-      const fileUrl = getFilePreview(uploadedFile.$id, 296, 525)
+      const fileUrl = getFilePreview(uploadedFile.$id, 394, 700)
 
       if (!fileUrl) {
         await deleteFile(uploadedFile.$id);

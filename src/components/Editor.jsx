@@ -1,4 +1,4 @@
-import React, {useRef } from 'react';
+import React, { useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { useThemeContext } from '../context/UserContext';
 import { useContentContext } from '../context/EditorContent';
@@ -29,10 +29,17 @@ function TextEditor() {
           plugins: [
             'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
             'anchor', 'searchreplace', 'code', 'fullscreen',
-            'insertdatetime', 'media', 'table', 'code', 'wordcount'
+            'insertdatetime', 'media', 'table', 'code', 'wordcount', 'codesample '
           ],
-          toolbar: 'undo redo | blocks  | bold italic underline forecolor strikethrough preview| align  lineheight numlist bullist | fontfamily | indent outdent | link image media table  |  emoticons charmap removeformat ',
-          content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
+          toolbar: ' undo redo | blocks  | bold italic underline forecolor codesample code preview| align  lineheight numlist bullist | fontfamily | indent outdent | link image media table  |  emoticons charmap strikethrough|  ',
+          content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
+          codesample_languages: [  // Optional: Define supported languages for code snippets
+            { text: 'HTML/XML', value: 'markup' },
+            { text: 'JavaScript', value: 'javascript' },
+            { text: 'CSS', value: 'css' },
+            { text: 'React (JSX)', value: 'jsx' }
+          ],
+          codesample_global_prismjs: true
         }}
         onEditorChange={onChange}
       />

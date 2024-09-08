@@ -7,6 +7,7 @@ import { Loader, CommentSection, BlogInteractionSection, MoreBlogsSection, Butto
 import { useGetBlogById, useGetBlogComments, useGetBlogLikes, useGetBlogSaves, useGetMoreBlogsFromAuthor, useGetRelatedBlogs } from '../lib/react-query/queries'
 import useModal from '../hooks/useModal.js';
 
+
 function BlogPage() {
   const commentsRef = useRef(null);
   const { slug } = useParams();
@@ -46,6 +47,11 @@ function BlogPage() {
     )
   }
 
+  useEffect(() => {
+    if (!loading) {
+      Prism.highlightAll(); // Trigger Prism syntax highlighting
+    }
+  }, [blogData, loading]);
 
   if (loading) {
     return (
@@ -150,7 +156,7 @@ function BlogPage() {
           <div className='italic text-left  text-lg sm:text-xl colored break-words border-l-4 p-4 bg-gray-50  dark:bg-[#171B21] dark:border-l-[#30363D]'>
             {blogData?.description}
           </div>
-          <div className='flex flex-col text-base break-words medium_color sm:text-lg' dangerouslySetInnerHTML={{ __html: blogData?.content }} />
+          <div className='flex flex-col gap-4 text-base break-words medium_color sm:text-lg' dangerouslySetInnerHTML={{ __html: blogData?.content }} />
           <div className='flex flex-wrap items-center gap-2 mt-10 font-semibold color'>
             <span>Tags: </span>
             {blogData?.tags?.map((tag, index) => (

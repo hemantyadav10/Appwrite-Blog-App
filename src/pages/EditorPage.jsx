@@ -232,7 +232,7 @@ function EditorPage() {
             <input
               id='uploadThumbnail'
               type="file"
-              accept='.png, .jpg, .jpeg, .webp'
+              accept='.png, .jpg, .jpeg'
               hidden
               onChange={(e) => {
                 const file = e.target.files?.[0];

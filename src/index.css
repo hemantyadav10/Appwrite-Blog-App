@@ -30,6 +30,7 @@
     .color {
         @apply text-[#1f1f1f] transition-colors dark:text-[#E6EDF3];
     }
+
     .medium_color {
         @apply text-[#333333] transition-colors dark:text-[#d2d9df];
     }
@@ -38,9 +39,25 @@
         @apply text-gray-600 transition-colors dark:text-[#8d96a0];
 
     }
-    .colored{
+
+    .colored {
         @apply text-[#1f1f1f] dark:text-indigo-300 transition-colors;
     }
 
+    iframe {
+        @apply max-w-[700px] w-full;
+    }
+
+    .code-toolbar {
+        @apply text-xs;
+    }
+
+    code{
+        @apply bg-[#f2f2f2] px-1 py-[2px] dark:bg-[#2d2d2d] medium_color;
+    }
+
+    pre{
+        @apply  rounded-md ;
+    }
 
 }
