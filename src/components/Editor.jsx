@@ -26,20 +26,23 @@ function TextEditor() {
           skin: theme === 'dark' ? 'oxide-dark' : 'oxide',
           content_css: theme === 'dark' ? 'dark' : '',
           height: 500,
+          selector: 'textarea',
           plugins: [
             'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
             'anchor', 'searchreplace', 'code', 'fullscreen',
-            'insertdatetime', 'media', 'table', 'code', 'wordcount', 'codesample '
+            'insertdatetime', 'media', 'wordcount', 'codesample',
           ],
-          toolbar: ' undo redo | blocks  | bold italic underline forecolor codesample code preview| align  lineheight numlist bullist | fontfamily | indent outdent | link image media table  |  emoticons charmap strikethrough|  ',
+          toolbar: ' undo redo | blocks  | bold italic underline forecolor codesample| align  lineheight numlist bullist |preview fullscreen| fontfamily | indent outdent | link image media |  emoticons charmap strikethrough|  ',
           content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
           codesample_languages: [  // Optional: Define supported languages for code snippets
             { text: 'HTML/XML', value: 'markup' },
             { text: 'JavaScript', value: 'javascript' },
             { text: 'CSS', value: 'css' },
-            { text: 'React (JSX)', value: 'jsx' }
+            { text: 'React (JSX)', value: 'jsx' },
+            { text: 'Bash/Shell', value: 'bash' }
           ],
-          codesample_global_prismjs: true
+          codesample_global_prismjs: true,
+          link_default_protocol: 'http'
         }}
         onEditorChange={onChange}
       />
