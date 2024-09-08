@@ -64,7 +64,7 @@ function Profile() {
               {loadingProfileDetails
                 ? <div className='flex items-center justify-center'><Loader /></div>
                 :
-                <div className='flex flex-col gap-6 color'>
+                <div className='flex flex-col gap-6 break-words whitespace-pre-wrap color'>
                   <div>
                     {profileDetails?.bio ? profileDetails.bio : <div className='dark:bg-[#21262d] p-2 rounded-md text-center bg-gray-50  text-sm   w-full color'>
                       No bio available.
