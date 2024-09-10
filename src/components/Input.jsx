@@ -23,7 +23,7 @@ const Input = forwardRef(function Input({
           type={showPasswordToggle && showPassword ? 'text' : type}
           placeholder={placeholder}
           disabled={disabled}
-          className={` placeholder:italic bg-gray-100 border  p-3 placeholder:text-gray-500 focus:ring-1 outline-none focus:bg-white dark:focus:bg-[#0d1117] dark:placeholder:text-[#8d96a0] dark:bg-[#21262d] dark:border-[#30363D]  transition-colors pl-10 w-full  ${error ? 'focus:ring-[#b3261e] border-[#b3261e] dark:border-[#FF6B6B]/70 dark:focus:ring-[#FF6B6B]/70' : 'focus:ring-indigo-300 hover:border-gray-300 dark:hover:border-gray-600 focus:border-transparent'}  ${className} color`}
+          className={` placeholder:italic bg-gray-100 border  p-3 placeholder:text-gray-500 focus:ring-1 outline-none focus:bg-white dark:focus:bg-[#0d1117] dark:placeholder:text-[#8d96a0] dark:bg-[#212830] dark:border-[#3d444db3]  transition-colors pl-10 w-full  ${error ? 'focus:ring-[#b3261e] border-[#b3261e] dark:border-[#FF6B6B]/70 dark:focus:ring-[#FF6B6B]/70' : 'focus:ring-indigo-300 hover:border-gray-300 dark:hover:border-gray-600 focus:border-transparent'}  ${className} color`}
           ref={ref}
           {...props}
         />

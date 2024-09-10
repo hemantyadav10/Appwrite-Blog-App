@@ -28,7 +28,7 @@ function Home() {
                   <BlogCard blog={blog} key={blog?.$id} />
                 ))
               }
-              < Link to='/explore' className='text-sm font-semibold text-[#1f1f1f] capitalize transition-all dark:text-indigo-300 hover:opacity-80 active:opacity-100' >
+              < Link to='/explore' className='text-sm font-semibold text-[#1f1f1f] capitalize transition-all dark:text-indigo-300 hover:opacity-80 active:opacity-100  w-max' >
                 view all
               </Link >
             </>

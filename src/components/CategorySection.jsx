@@ -23,15 +23,16 @@ function CategorySection({ loading, loadingMore }) {
   }, [currentCategory, searchParams, pathname])
 
 
+
   return (
     <div className='flex flex-wrap gap-3'>
       {blogCategories.map((category, index) => (
         <button
-        aria-label={`category:${category}`}
+          aria-label={`category:${category}`}
           disabled={loading || loadingMore}
           key={index}
           onClick={() => handleCategoryClick(category?.toLowerCase())}
-          className={`${currentCategory === category.toLowerCase() ? 'bg-[#1f1f1f] text-white dark:bg-indigo-500' : 'hover:bg-[#1f1f1f] hover:text-white bg-gray-100 dark:bg-[#21262d] dark:hover:bg-indigo-500 dark:hover:text-[#E6EDF3]'} px-3 py-2 text-xs font-medium text-center   rounded-md   active:opacity-80 text-[#1f1f1f] transition-colors   dark:bg-[#21262d]   dark:text-[#E6EDF3] `}
+          className={`${currentCategory === category.toLowerCase() ? 'bg-[#1f1f1f] text-white dark:bg-indigo-500' : 'hover:bg-[#1f1f1f] hover:text-white bg-gray-100 dark:bg-[#212830] dark:hover:bg-indigo-500 dark:hover:text-[#E6EDF3]'} px-3 py-2 text-xs font-medium text-center   rounded-md   active:opacity-80 text-[#1f1f1f] transition-colors dark:text-[#E6EDF3] `}
         >
           {category}
         </button>

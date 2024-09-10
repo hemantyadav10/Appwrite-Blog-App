@@ -61,8 +61,9 @@ function ManageBlogs() {
                 You have no saved blogs.
               </div> : < div className='flex flex-col w-full gap-6 '>
                 {savedBlogs?.documents.map((blog) => (
-                  <div key={blog.$id} >
+                  <div key={blog.$id} className='space-y-6 '>
                     <ManageSavedBlogComponent blog={blog.blog} saveId={blog.$id} />
+                    <hr className='dark:border-[#30363D] transition-colors'/>
                   </div>
                 ))}
               </div>)

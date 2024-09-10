@@ -74,7 +74,7 @@ function BlogInteractionSection({ blogData, commentsRef, blogId, userHasLiked = 
                 aria-label={userHasLiked ? 'Unlike' : 'Like'}
                 disabled={loadingLikes || likeBlogMutation.isPending}
                 onClick={handleLikeClick}
-                className={`p-1 transition-colors rounded-full   group $    ${loadingLikes ? 'cursor-progress opacity-50' : 'hover:bg-red-100 dark:hover:bg-[#21262d] peer'}`}
+                className={`p-1 transition-colors rounded-full   group $    ${loadingLikes ? 'cursor-progress opacity-50' : 'hover:bg-red-100 dark:hover:bg-[#262c36] peer'}`}
               >
                 <LikeIcon className={`size-6 light_color ${!loadingLikes ? (userHasLiked && isAuthenticated && 'fill-red-600 stroke-red-600 dark:stroke-red-600') : ''} `} />
               </button>
@@ -91,7 +91,7 @@ function BlogInteractionSection({ blogData, commentsRef, blogId, userHasLiked = 
                 disabled={loadingComments}
                 aria-label='comments'
                 onClick={scrollToComments}
-                className={`p-1 transition-colors rounded-full  ${loadingComments ? 'opacity-50 cursor-progress' : ' peer hover:bg-gray-100 group  dark:hover:bg-[#21262d] dark:active:bg-[#12161C] active:bg-gray-200'}`}
+                className={`p-1 transition-colors rounded-full  ${loadingComments ? 'opacity-50 cursor-progress' : ' peer hover:bg-gray-100 group  dark:hover:bg-[#262c36] dark:active:bg-[#2a313c] active:bg-gray-200'}`}
               >
                 <CommentsIcon className='size-6 light_color' />
               </button>
@@ -109,9 +109,9 @@ function BlogInteractionSection({ blogData, commentsRef, blogId, userHasLiked = 
               aria-label={userHasSaved ? 'unsave' : 'save'}
               disabled={saveUnsaveBlogMutation.isPending}
               onClick={handleSaveClick}
-              className='p-1 transition-colors rounded-full hover:bg-indigo-100 group peer dark:hover:bg-[#21262d] dark:active:bg-[#12161C] active:bg-gray-200'
+              className='p-1 transition-colors rounded-full hover:bg-indigo-100 group peer dark:hover:bg-[#262c36] dark:active:bg-[#2a313c] active:bg-gray-200'
             >
-              <BookmarkIcon className={`size-5 light_color  ${(userHasSaved && isAuthenticated) && 'fill-indigo-500 stroke-indigo-500 dark:stroke-indigo-500'} group-active:scale-90 ${saveUnsaveBlogMutation.isPending ? ' opacity-60' : ' opacity-100'}`} />
+              <BookmarkIcon className={`size-5 light_color  ${(userHasSaved && isAuthenticated) && 'fill-indigo-500 stroke-indigo-500 dark:stroke-indigo-500'}  ${saveUnsaveBlogMutation.isPending ? ' opacity-60' : ' opacity-100'}`} />
 
             </button>
             <Tooltip content={(userHasSaved && isAuthenticated) ? 'Unsave' : 'Save'} />
@@ -125,7 +125,7 @@ function BlogInteractionSection({ blogData, commentsRef, blogId, userHasLiked = 
                   aria-label='edit blog'
                   to={`/editor/${blogData.$id}`}
                   state={'edit'}
-                  className='p-1 transition-colors rounded-full hover:bg-gray-100 group peer dark:hover:bg-[#21262d] dark:active:bg-[#12161C] active:bg-gray-200'
+                  className='p-1 transition-colors rounded-full hover:bg-gray-100 group peer dark:hover:bg-[#262c36] dark:active:bg-[#2a313c] active:bg-gray-200'
                 >
                   <EditIcon className='size-5 light_color' />
                 </Link>
@@ -136,7 +136,7 @@ function BlogInteractionSection({ blogData, commentsRef, blogId, userHasLiked = 
                 <button
                   aria-label='delete blog'
                   onClick={openModal}
-                  className='p-1 transition-colors rounded-full hover:bg-gray-100 group peer dark:hover:bg-[#21262d] dark:active:bg-[#12161C] active:bg-gray-200'
+                  className='p-1 transition-colors rounded-full hover:bg-gray-100 group peer dark:hover:bg-[#262c36] dark:active:bg-[#2a313c] active:bg-gray-200'
                 >
                   <DeleteIcon className='size-5 light_color' />
                 </button>

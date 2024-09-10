@@ -70,7 +70,7 @@ function CommentCard({ comment, blogOwnerId, blogId }) {
 
 
   return (
-    <div className={`flex gap-4 text-sm rounded-lg`}>
+    <div className={`flex gap-4 text-sm rounded-lg relative`}>
       <div className=''>
         <div className=' size-10'>
           {comment?.authors.imageUrl ?
@@ -101,13 +101,13 @@ function CommentCard({ comment, blogOwnerId, blogId }) {
             {(user?.id === comment?.authors.$id || blogOwnerId === user?.id) &&
               <div
                 ref={menuRef}
-                className='relative flex group'
+                className='absolute top-0 right-0 flex group'
               >
                 <button
                   aria-label='more options'
                   type='button'
                   onClick={() => setIsOpen(prev => !prev)}
-                  className={`p-1 transition-colors rounded-full hover:bg-gray-100  ${!isOpen ? ' peer ' : ' dark:bg-[#2b313a] bg-gray-100 '}  dark:hover:bg-[#2b313a] dark:active:bg-[#343b46] active:bg-gray-200`}
+                  className={`p-1 transition-colors rounded-full hover:bg-gray-100  ${!isOpen ? ' peer ' : ' dark:bg-[#212830] bg-gray-100 '}  dark:hover:bg-[#262c36] dark:active:bg-[#2a313c] active:bg-gray-200`}
                 >
                   <ThreeDotsIcon className='rotate-90 size-5 color' />
                 </button>
@@ -119,16 +119,16 @@ function CommentCard({ comment, blogOwnerId, blogId }) {
                       <button
                         type='button'
                         onClick={handleEditClick}
-                        className={`flex items-center gap-2  transition-colors  group active:bg-gray-200  hover:bg-gray-100 py-2 px-4 w-full dark:hover:bg-[#2b313a] dark:hover:text-[#E6EDF3] dark:active:bg-[#2b313a]/80`}
+                        className={`flex items-center gap-2  transition-colors  group active:bg-gray-200  hover:bg-gray-100 py-2 px-4 w-full dark:hover:bg-[rgb(38,44,54)]  dark:active:bg-[#2a313c]`}
                       >
-                        <EditIcon className='size-4' />
+                        <EditIcon className='size-4 ' />
                         Edit
                       </button>}
                     <button
                       disabled={isPending}
                       type='button'
                       onClick={openModal}
-                      className='flex items-center gap-2  transition-colors  group active:bg-gray-200  hover:bg-gray-100 py-2 px-4 w-full dark:hover:bg-[#2b313a] dark:hover:text-[#E6EDF3] dark:active:bg-[#2b313a]/80'
+                      className='flex items-center gap-2  transition-colors  group active:bg-gray-200  hover:bg-gray-100 py-2 px-4 w-full dark:hover:bg-[#262c36] dark:active:bg-[#2a313c]'
                     >
                       <DeleteIcon className='size-4' />
                       Delete

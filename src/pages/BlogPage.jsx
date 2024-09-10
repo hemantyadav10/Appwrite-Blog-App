@@ -66,11 +66,11 @@ function BlogPage() {
 
   return (
     <div className='flex flex-col sm:mt-[72px] mt-16 min-h-[calc(100vh-72px)]  transition-color'>
-      <div className='relative w-max'>
+      <div className='relative hidden w-max lg:flex'>
         <button
           aria-label='back button'
           onClick={() => navigate(-1)}
-          className='p-2 rounded-full bg-gray-50 hover:bg-gray-100 dark:hover:bg-[#21262d] mx-16 mt-4 w-max lg:flex hidden dark:bg-[#21262d] transition-all dark:hover:opacity-80 peer'
+          className='p-2 rounded-full bg-gray-100 hover:bg-gray-200 active:bg-gray-100 dark:hover:bg-[#262c36] mx-16 mt-4 w-max  dark:bg-[#212830] transition-all dark:active:bg-[#2a313c] peer'
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="sm:size-5 size-4 color">
             <path fillRule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clipRule="evenodd" />
@@ -81,14 +81,16 @@ function BlogPage() {
       <div className='flex flex-col items-center flex-1 gap-6 p-5 pb-20 lg:pt-0 '>
         <div className='w-full  max-w-[700px] flex flex-col gap-6 md:gap-8  '>
           <div className='space-y-2'>
-            <Link to={`/explore?category=${blogData?.category.toLowerCase()}`} >
-              <Button
-                variant='category'
-                className='px-3 py-1 text-xs rounded-md'
-              >
-                {blogData?.category || ''}
-              </Button>
-            </Link>
+            <div className='w-max'>
+              <Link to={`/explore?category=${blogData?.category.toLowerCase()} `} >
+                <Button
+                  variant='category'
+                  className='px-3 py-1 text-xs rounded-md'
+                >
+                  {blogData?.category || ''}
+                </Button>
+              </Link>
+            </div>
             <p className='text-3xl font-bold leading-tight break-words md:leading-tight md:text-4xl color '>
               {blogData?.title || ''}
             </p>
@@ -119,20 +121,17 @@ function BlogPage() {
               >
                 {blogData?.creator.name || ''}
               </Link>
-              <div className='flex flex-col gap-1 text-xs sm:flex-row sm:gap-2 '>
-                <p className='flex flex-col flex-wrap gap-1 font-normal medium_color sm:gap-2 sm:flex-row' >
-                  <span>
-                    {convertToReadableTime(blogData?.$createdAt)}
-                  </span>
-                  <span className='hidden transition-colors sm:block dark:text-white'>
-                    &#183;
-                  </span>
-                  <span>
-                    {blogData?.readTime < 1 ? 'Less than a minute read' : `${Math.ceil(blogData?.readTime)} min read`}
-                  </span>
-                </p>
-
-              </div>
+              <p className='flex flex-wrap items-center gap-2 text-xs font-normal medium_color'>
+                <span>
+                  {convertToReadableTime(blogData?.$createdAt)}
+                </span>
+                <span>
+                  &#x2022;
+                </span>
+                <span>
+                  {blogData?.readTime < 1 ? 'Less than a minute read' : `${Math.ceil(blogData?.readTime)} min read`}
+                </span>
+              </p>
             </div>
           </div>
           <div className='flex flex-col gap-4'>
@@ -163,7 +162,7 @@ function BlogPage() {
               <Link
                 to={`/tag/${tag}`}
                 key={index}
-                className='text-[#1f1f1f] px-4 py-2 text-xs font-medium transition-colors bg-gray-100 rounded-full hover:bg-gray-200 dark:text-[#c9d1d9] dark:bg-[#21262d] text-center'
+                className=' px-4 py-2 text-xs font-medium transition-colors bg-gray-100 rounded-full hover:bg-gray-200  dark:bg-[#212830] dark:hover:bg-[#262c36] dark:active:bg-[#2a313c] text-center medium_color'
               >
                 {tag}
               </Link>

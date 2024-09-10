@@ -23,9 +23,9 @@ function Categories() {
   const getHeading = () => {
     let heading;
     if (category && query) {
-      heading = `Results for '${query}' in "${category}"`;
+      heading = `"${query}" in "${category}"`;
     } else if (query) {
-      heading = `Results for "${query}"`;
+      heading = `"${query}"`;
     }
     return heading;
   };
@@ -40,11 +40,11 @@ function Categories() {
     <div className='flex flex-col items-center flex-1 w-full gap- sm:mt-[71px]  mt-16 gap-5 md:px-14 xl:px-24 py-10 px-5 grid-cols-6 '>
       <div className='flex flex-col w-full gap-12 lg:gap-12  dark:text-[#E6EDF3] lg:pb-0 lg:grid lg:grid-cols-6 '>
         <div className='flex flex-col gap-12 lg:col-span-4'>
-          <div className='flex flex-col w-full   dark:text-[#E6EDF3] text-white   gap-4 transition-colors  items-center '>
-            <p className=' flex gap-4  font-bold text-3xl text-[#1f1f1f] dark:text-indigo-400 transition-colors capitalize bg-gray-100 w-full justify-center p-2 dark:bg-[#21262d]'>
+          <div className='flex flex-col w-full dark:text-[#E6EDF3] text-white   gap-4 transition-colors  justify-center '>
+            <p className='flex w-full gap-4 p-2 text-4xl font-bold capitalize transition-colors md:text-5xl colored '>
               {category ? category : 'All'}
             </p>
-            <p className='text-center color'>Discover more categories and expand your knowledge!</p>
+            <p className=' color'>Discover more categories and expand your knowledge!</p>
           </div>
           <SearchInputComponent
             query={query}
@@ -61,9 +61,9 @@ function Categories() {
             <CategorySection loading={loading} />
           </div>
           <div className='flex  w-full  font-medium  text-[#1f1f1f] dark:text-[#E6EDF3] transition-colors text-sm flex-col gap-4  min-h-96'>
-            <div className='flex items-center justify-between gap-2'>
-              <p className='px-2 pb-1 overflow-hidden underline text-nowrap text-ellipsis color w-max underline-offset-4'>
-                {getHeading()}
+            <div className='flex items-center justify-between h-8 gap-2'>
+              <p className='px-2 pb-1 overflow-hidden text-lg font-semibold text-nowrap text-ellipsis color w-max'>
+                {query && <span className='colored'>Results for</span>} {getHeading()}
               </p>
               <p>
                 <select
@@ -101,7 +101,7 @@ function Categories() {
                           ))}
                           {(loadingMore || hasNextPage) &&
                             <div ref={ref}>
-                              <HomeBlogSkeleton />
+                              <HomeBlogSkeleton length={1}/>
                             </div>
                           }
                         </>

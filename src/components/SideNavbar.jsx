@@ -65,13 +65,13 @@ function SideNavbar() {
                     </p>
                     <hr className='w-full dark:border-[#30363D] color' />
                   </div>
-                  <ul className='flex flex-col gap-2 '>
+                  <ul className='flex flex-col gap-2 list-none'>
                     {item.subHeadings.map((subItems, j) => (
                       <li key={j}>
                         <NavLink
                           onClick={() => setShowMenu(false)}
                           to={subItems.slug}
-                          className={({ isActive }) => `${isActive ? 'bg-gray-100 border-r-[3px] border-r-[#1f1f1f] dark:bg-[#2b313a] dark:border-r-indigo-400 color ' : ' hover:bg-gray-100  active:bg-gray-200 dark:hover:bg-[#2b313a] dark:active:bg-[#2b313a]/80 medium_color hover:text-[#1f1f1f] dark:hover:text-[#E6EDF3]'} flex items-center gap-3  py-3 px-4 transition-colors`}
+                          className={({ isActive }) => `${isActive ? 'bg-gray-100 border-r-[3px] border-r-[#1f1f1f] dark:bg-[#262c36] dark:border-r-indigo-400 color ' : ' hover:bg-gray-100  active:bg-gray-200 dark:hover:bg-[#262c36] dark:active:bg-[#2a313c] medium_color hover:text-[#1f1f1f] dark:hover:text-[#E6EDF3]'} flex items-center gap-3  py-3 px-4 transition-colors`}
                         >
                           <subItems.icon className={`size-5 medium_color`} />
                           {subItems.name}

@@ -163,7 +163,7 @@ function EditorPage() {
 
   return (
     <form onSubmit={publishBlog} className='flex flex-col items-center w-full  dark:text-[#E6EDF3]  flex-1 dark:bg-[#0d1117] bg-white  transition-all '>
-      <div className='flex items-center justify-between  h-16 gap-3 px-4 text-xs font-semibold md:gap-4 md:text-sm lg:px-10 sm:px-6 sm:h-[72px] sticky top-0 z-20 bg-white/90 w-full dark:bg-[#0d1117]/80 backdrop-blur-md border-b dark:border-b-[#30363D] transition-colors'>
+      <div className='flex items-center justify-between  h-16 gap-3 px-4 text-xs font-semibold md:gap-4 md:text-sm lg:px-10 sm:px-6 sm:h-[72px] sticky top-0 z-20 bg-white w-full dark:bg-[#151b23] backdrop-blur-md  transition-colors shadow-md dark:shadow-black/40'>
         <div><Logo /></div>
         <div className='flex items-center gap-3 md:gap-4'>
           <button
@@ -252,7 +252,7 @@ function EditorPage() {
               placeholder='Blog Title'
               onKeyDown={handleKeyDown}
               maxLength='150'
-              className='px-2 text-3xl font-bold border-none hover:placeholder:opacity-50 md:text-4xl'
+              className='px-2 text-3xl font-bold border-none hover:placeholder:opacity-50 md:text-4xl dark:bg-[#0d1117]'
             />
             <div className='text-xs text-right text-gray-500 dark:placeholder:text-[#8d96a0] transition-colors'>
               {title.length}/150
@@ -266,7 +266,7 @@ function EditorPage() {
               placeholder='Description'
               onKeyDown={handleKeyDown}
               maxLength='200'
-              className='px-2 text-lg italic border-none placeholder:font-bold placeholder:hover:opacity-50'
+              className='px-2 text-lg italic border-none placeholder:font-bold placeholder:hover:opacity-50 dark:bg-[#0d1117]'
             />
             <div className='text-xs text-right text-gray-500 dark:placeholder:text-[#8d96a0] transition-colors'>
               {description.length}/200

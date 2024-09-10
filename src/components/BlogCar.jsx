@@ -59,10 +59,10 @@ function BlogCard({ blog }) {
 
   return (
     <div
-      className="flex flex-col  w-full sm:min-w-[47%]  sm:grid grid-cols-12 dark:text-[#E6EDF3]  transition-all  sm:border-none sm:gap-8 gap-6 sm:p-3 shadow-md sm:hover:shadow-lg dark:shadow-black/40  sm:dark:hover:shadow-black/50 pb-4 dark:bg-[#141a23] bg-white"
+      className="flex flex-col  w-full sm:min-w-[47%]  sm:grid grid-cols-12 dark:text-[#E6EDF3]  transition-all   sm:gap-8 gap-6 sm:p-3 shadow-md sm:hover:shadow-lg  pb-4 dark:bg-[#151b23] bg-white border dark:border-[#3d444db3] rounded-md dark:hover:shadow-black/50 dark:shadow-black/50"
     >
       <Link to={`/blog/${slug}`}
-        className='w-full overflow-hidden aspect-video sm:aspect-[7/5]  col-span-5 h-full'>
+        className='w-full overflow-hidden aspect-video sm:aspect-[7/5]  col-span-5 h-full rounded-t-md sm:rounded-none'>
         <img
           src={featuredImage}
           alt={title}
@@ -92,7 +92,7 @@ function BlogCard({ blog }) {
                   disabled={loading}
                   aria-label='More options'
                   onClick={openMore}
-                  className={`p-1 transition-colors rounded-full hover:bg-gray-100  ${(!isOpen || loading) ? ' peer ' : ' dark:bg-[#21262d] bg-gray-100 '}  dark:hover:bg-[#21262d] `}
+                  className={`p-1 transition-colors rounded-full hover:bg-gray-100  ${(!isOpen || loading) ? ' peer ' : ' dark:bg-[#212830] bg-gray-100 '}  dark:hover:bg-[#262c36] dark:active:bg-[#2a313c]`}
                 >
                   <ThreeDotsIcon className='size-5 color' />
                 </button>
@@ -107,7 +107,7 @@ function BlogCard({ blog }) {
                         e.preventDefault();
                         navigate(`/editor/${blogId}`, { state: 'edit' })
                       }}
-                      className={`flex items-center gap-2  transition-colors group active:bg-gray-200  hover:bg-gray-100 py-2 px-4 w-full dark:hover:bg-[#2b313a] dark:hover:text-[#E6EDF3] dark:active:bg-[#2b313a]/80`}
+                      className={`flex items-center gap-2  transition-colors  active:bg-gray-200  hover:bg-gray-100 py-2 px-4 w-full dark:hover:bg-[#262c36]  dark:active:bg-[#2a313c]`}
                     >
                       <EditIcon className='size-4 color' />
 
@@ -120,7 +120,7 @@ function BlogCard({ blog }) {
                         openModal();
                         setIsOpen(false);
                       }}
-                      className='flex items-center w-full gap-2 px-4 py-2 transition-colors hover:text-black group active:bg-gray-200 hover:bg-gray-100 dark:hover:bg-[#2b313a] dark:hover:text-[#E6EDF3] dark:active:bg-[#2b313a]/80'
+                      className='flex items-center w-full gap-2 px-4 py-2 transition-colors active:bg-gray-200 hover:bg-gray-100 dark:hover:bg-[#262c36]  dark:active:bg-[#2a313c]'
                     >
                       <DeleteIcon className='size-4 color' />
                       Delete

@@ -14,11 +14,11 @@ function MoreFromAuthorCard({ blog, authorInfo = true }) {
 
   return (
     <div
-      className="w-full sm:min-w-[47%] dark:text-[#E6EDF3] flex flex-col transition-all h-full  shadow-md sm:hover:shadow-lg dark:shadow-black/40  sm:dark:hover:shadow-black/50  dark:bg-[#141a23] bg-white "
+      className="w-full sm:min-w-[47%] dark:text-[#E6EDF3] flex flex-col transition-all h-full  shadow-md sm:hover:shadow-lg dark:hover:shadow-black/50 dark:shadow-black/50 border dark:border-[#3d444db3]  dark:bg-[#141a23] bg-white rounded-md"
     >
       <Link
         to={`/blog/${slug}`}
-        className='w-full overflow-hidden aspect-video'
+        className='w-full overflow-hidden aspect-video rounded-t-md'
       >
         <img
           loading='lazy'

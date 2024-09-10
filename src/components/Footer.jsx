@@ -4,7 +4,7 @@ import { Logo } from './index'
 
 function Footer() {
     return (
-        <footer className="  border-t-8 border-indigo-400 rounded-t-lg bg-gray-50 dark:bg-[#141a23] color">
+        <footer className="  border-t-8 border-indigo-400 rounded-t-lg bg-gray-50 dark:bg-[#151b23] color">
             <div className="w-full max-w-screen-xl p-4 py-6 mx-auto lg:py-8">
                 <div className="md:flex md:justify-between">
                     <div className="mb-6 md:mb-0">
@@ -13,7 +13,7 @@ function Footer() {
                     <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                         <div>
                             <h2 className="mb-6 text-sm font-semibold uppercase ">Resources</h2>
-                            <ul className="text-sm light_color ">
+                            <ul className="text-sm list-none light_color">
                                 <li className="mb-4">
                                     <Link to="/" className="hover:underline">
                                         Home
@@ -28,7 +28,7 @@ function Footer() {
                         </div>
                         <div>
                             <h2 className="mb-6 text-sm font-semibold uppercase ">Follow us</h2>
-                            <ul className="text-sm light_color ">
+                            <ul className="text-sm list-none light_color">
                                 <li className="mb-4">
                                     <Link to="/" className="hover:underline">
                                         Github
@@ -43,7 +43,7 @@ function Footer() {
                         </div>
                         <div>
                             <h2 className="mb-6 text-sm font-semibold uppercase">Legal</h2>
-                            <ul className="text-sm light_color ">
+                            <ul className="text-sm list-none light_color">
                                 <li className="mb-4">
                                     <Link to="#" className="hover:underline">
                                         Privacy Policy
