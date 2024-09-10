@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { SettingsIcon, WriteIcon, ProfileIcon, DashboardIcon, LogoutIcon, UsernameIcon, SearchIcon, CloseButton } from '../assets/index';
 import { Link, NavLink, useLocation, useNavigate, } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -10,6 +10,7 @@ import { capitalizeWords } from '../utils';
 function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef(null);
+  const searchRef = useRef(null);
   const { user, setUser, setIsAuthenticated, isAuthenticated } = useUserContext();
   const { theme, setTheme } = useThemeContext();
   const location = useLocation();
@@ -105,10 +106,25 @@ function Navbar() {
     setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
   }
 
+  const focusSearchBar = useCallback((e) => {
+    const activeElement = document.activeElement;
+    const isInputActive = activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA';
+    if (e.key === '/' && !isInputActive && searchRef.current) {
+      e.preventDefault();
+      searchRef.current.focus();
+    }
+    if (e.key === 'Escape' && searchRef.current === document.activeElement) {
+      e.preventDefault();
+      searchRef.current.blur();
+    }
+  }, []);
+
   useEffect(() => {
     document.addEventListener('mousedown', closeMenu);
+    document.addEventListener('keydown', focusSearchBar)
     return () => {
       document.removeEventListener('mousedown', closeMenu);
+      document.removeEventListener('keydown', focusSearchBar);
     }
   }, []);
 
@@ -118,8 +134,8 @@ function Navbar() {
 
   return (
     <>
-      <nav className={`fixed top-0 z-50   w-full h-16 sm:h-[72px] dark:bg-[#141a23]  dark:border-b-[#30363D]  dark:text-[#E6EDF3] text-sm sm:px-6  lg:px-10   px-4 md:grid grid-cols-10 flex justify-between bg-white  backdrop-blur-md shadow-md dark:shadow-black/40 transition-all`} >
-      {/* border-b */}
+      <nav className={`navbar  fixed top-0 z-50   w-full h-16 sm:h-[72px] dark:bg-[#151b23]  border-transparent  dark:border-b-[#30363D]  dark:text-[#E6EDF3] text-sm sm:px-6  lg:px-10   px-4 md:grid grid-cols-10 flex justify-between bg-white shadow-md  transition-all border-b `} >
+        {/* border-b */}
         <div className={` md:hidden absolute left-0 w-full h-[calc(100vh-64px)] sm:h-[calc(100vh-72px)] bg-white top-full  ${!isMenuVisible && ' hidden '} gap-2 flex flex-col items-center  text-2xl text-white z-10 color dark:bg-[#0d1117] px-8 `}>
           <div className='w-full my-4 text-right '>
             <button
@@ -170,18 +186,20 @@ function Navbar() {
                   navigate('/explore')
                   handleCloseMenu();
                 }}
-                className='flex items-center justify-center p-2 rounded-full bg-gray-50 hover:bg-gray-200 xl:hidden dark:bg-[#1f2937] transition-colors focus dark:hover:bg-[#3a424a] dark:active:bg-[#21262d]'>
-                <SearchIcon className='size-5 light_color' />
+                className='flex items-center justify-center p-2 rounded-full bg-gray-100 hover:bg-gray-200 xl:hidden dark:bg-[#212830] transition-colors focus dark:hover:bg-[#262c36] dark:active:bg-[#2a313c]'>
+                <SearchIcon className='size-4 medium_color' />
               </button>
               <div className='relative hidden xl:flex'>
                 <Input
+                  ref={searchRef}
                   value={searchValue}
                   onChange={e => setSearchValue(e.target.value)}
                   icon={SearchIcon}
                   onKeyDown={handleSearch}
                   placeholder='Search'
-                  className='font-normal rounded-full focus:ring-indigo-300 w-72'
+                  className='pr-10 font-normal rounded-full focus:ring-indigo-300 w-72 focus:w-80 dark:bg-[#0d1117]'
                 />
+                <span className='absolute py-[3px] px-[6px] text-[10px] border rounded-sm light_color right-3 -translate-y-1/2 top-1/2 border-[#8d96a0]/50 bg-white leading-none dark:bg-[#0d1117] pointer-events-none'>/</span>
               </div>
             </div>)
           }
@@ -202,7 +220,7 @@ function Navbar() {
             <button
               onClick={changeTheme}
               aria-label='toggle theme'
-              className='size-8  transition-colors rounded-full  bg-gray-100 hover:bg-gray-200 group dark:hover:bg-[#2b313a]  peer    focus-visible:ring outline-none flex items-center justify-center dark:bg-[#21262d]'>
+              className='size-8  transition-colors rounded-full  bg-gray-100 hover:bg-gray-200 group dark:hover:bg-[#262c36]  peer    focus-visible:ring outline-none flex items-center justify-center dark:bg-[#212830]'>
               {theme === 'light'
                 ?
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-4 color">
@@ -241,9 +259,9 @@ function Navbar() {
                 </button>
                 <Tooltip content={capitalizeWords(user.name)} />
                 <div
-                  className={`absolute  border shadow-md right-0 translate-y-4 top-full bg-white dark:bg-[#0d1117]  w-56  ${openMenu ? '' : 'hidden'} rounded-lg  z-10 py-2  text-sm   dark:border-[#30363D] dark:bg-[#141a23] medium_color dark:shadow-black/40`}
+                  className={`absolute  border shadow-md right-0 translate-y-4 top-full bg-white   w-56  ${openMenu ? '' : 'hidden'} rounded-lg  z-10 py-2  text-sm   dark:border-[#30363D] dark:bg-[#151b23] color dark:shadow-black/50`}
                 >
-                  <ul className='flex flex-col gap-1'>
+                  <ul className='flex flex-col gap-1 list-none'>
                     <li className='flex flex-col items-start gap-2 px-4 color'>
                       <p className='capitalize '>{user.name}</p>
                       <p className='flex items-center '>
@@ -256,9 +274,9 @@ function Navbar() {
                         to={item.slug}
                         key={item.name}
                         onClick={() => setOpenMenu(false)}
-                        className={({ isActive }) => `${isActive && 'bg-gray-100  dark:bg-[#2b313a]'} flex items-center gap-2  medium_color group active:bg-gray-200  hover:bg-gray-100 py-3 px-4 w-full dark:hover:bg-[#2b313a]  dark:active:bg-[#2b313a]/80`}
+                        className={({ isActive }) => `${isActive && 'bg-gray-100  dark:bg-[#2b313a]'} flex items-center gap-2  medium_color group active:bg-gray-200  hover:bg-gray-100 py-3 px-4 w-full dark:hover:bg-[#262c36]  dark:active:bg-[#2a313c]`}
                       >
-                        {item.icon && <item.icon className='size-5 light_color' />}
+                        {item.icon && <item.icon className='size-5 medium_color' />}
                         {item.name}
                       </NavLink>
                     ))}
@@ -266,10 +284,10 @@ function Navbar() {
                     <button
                       disabled={loading}
                       onClick={handleLogout}
-                      className='flex items-center gap-2  transition-colors hover:text-[#1f1f1f] group active:bg-gray-200  hover:bg-gray-100 py-3 px-4 w-full dark:hover:bg-[#2b313a] dark:hover:text-[#E6EDF3] dark:active:bg-[#2b313a]/80 disabled:opacity-80'
+                      className='flex items-center gap-2 medium_color transition-colors active:bg-gray-200  hover:bg-gray-100 py-3 px-4 w-full dark:hover:bg-[#262c36]  dark:active:bg-[#2a313c] disabled:opacity-80'
                     >
                       <LogoutIcon className='medium_color size-5' />
-                      Sign out
+                      {loading ? 'Signing out...' : 'Sign out'}
                     </button>
                   </ul>
                 </div>
@@ -282,7 +300,7 @@ function Navbar() {
                   <Button
                     onClick={handleCloseMenu}
                     variant='secondary'
-                    className='px-4 border-2 border-indigo-300 rounded-lg dark:border-indigo-300'
+                    className=' text-xs border-2 border-indigo-300 rounded-lg dark:border-indigo-300 w-[72px]'
                   >
                     Sign Up
                   </Button>
@@ -293,7 +311,7 @@ function Navbar() {
                   <Button
                     onClick={handleCloseMenu}
                     variant='secondary'
-                    className='px-4 border-2 border-indigo-300 rounded-lg dark:border-indigo-300'
+                    className='text-xs border-2 border-indigo-300 rounded-lg dark:border-indigo-300 w-[72px]'
                   >
                     Sign In
                   </Button>
