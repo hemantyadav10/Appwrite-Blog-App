@@ -51,7 +51,7 @@ function CommentSection({ blogId, blogOwnerId, slug, commentCount }) {
               onChange={(e) => setCommentContent(e.target.value)}
               disabled={addCommentsLoading}
               placeholder='Leave a comment...'
-              className='bg-gray-100 dark:bg-[#21262d]'
+              className='bg-gray-100 dark:bg-[#21262d] flex-1'
             />
           </div>
           {!addCommentsLoading ?
@@ -84,7 +84,7 @@ function CommentSection({ blogId, blogOwnerId, slug, commentCount }) {
           loading ? (
             <Loader />
           ) : error ? (
-            <div className='w-full  color'>
+            <div className='w-full color'>
               <p>Failed to load comments. Please try again later.</p>
             </div>
           ) : commentCount === 0 ? (
