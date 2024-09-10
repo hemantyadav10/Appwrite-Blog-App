@@ -69,16 +69,15 @@ function ForgotPassword() {
                   message: 'Invalid Email.',
                 }
               })}
-              autoFocus
               className={` rounded-lg`}
             />
             <div className='space-y-2'>
               <Button
                 type='submit'
                 disabled={loading}
-                className={`w-full py-3 rounded-lg ${loading && 'cursor-progress'}`}
+                className={`w-full py-3 rounded-lg `}
               >
-                Submit
+                {loading ? 'Loading...' : 'Submit'}
               </Button>
               <Button
                 variant='third'

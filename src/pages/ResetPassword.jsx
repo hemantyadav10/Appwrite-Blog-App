@@ -54,10 +54,9 @@ function ResetPassword() {
             </p>
             <Input
               type='password'
-              placeholder='Password'
+              placeholder='New Password'
               icon={PasswordIcon}
               showPasswordToggle={true}
-              autoFocus
               error={errors.newPassword}
               {...register('newPassword', {
                 required: 'Password is required.',
@@ -74,7 +73,7 @@ function ResetPassword() {
             />
             <Input
               type='password'
-              placeholder='Password'
+              placeholder='Confirm Password'
               icon={PasswordIcon}
               showPasswordToggle={true}
               error={errors.confirmPassword}
@@ -92,9 +91,9 @@ function ResetPassword() {
               <Button
                 type='submit'
                 disabled={loading}
-                className={`w-full py-3 rounded-lg ${loading && 'cursor-progress'}`}
+                className={`w-full py-3 rounded-lg `}
               >
-                Submit
+                {loading ? 'Loading...' : 'Submit'}
               </Button>
               <Button
                 variant='third'

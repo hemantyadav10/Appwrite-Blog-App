@@ -68,7 +68,6 @@ function Login() {
             message: 'Invalid Email.',
           }
         })}
-        autoFocus
         className={` rounded-lg `}
       />
       <Input

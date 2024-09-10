@@ -53,7 +53,6 @@ function Signup() {
       <Input
         placeholder='Name'
         icon={ProfileIcon}
-        autoFocus
         error={errors.name}
         {...register('name', {
           required: 'Name is required.',

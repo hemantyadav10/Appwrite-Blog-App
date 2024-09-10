@@ -16,7 +16,6 @@ const SearchInputComponent = ({ setSearchParams, query, className = '' }) => {
         }, { replace: true })}
         placeholder='Find users or explore blogs...'
         icon={SearchIcon}
-        autoFocus
         clearInputButton
         onClick={() => setSearchParams(prev => {
           prev.set('q', '');
