@@ -196,10 +196,12 @@ function Navbar() {
                   onChange={e => setSearchValue(e.target.value)}
                   icon={SearchIcon}
                   onKeyDown={handleSearch}
-                  placeholder='Search'
-                  className='pr-10 font-normal rounded-full focus:ring-indigo-300 w-72 focus:w-80 dark:bg-[#0d1117]'
+                  className='font-normal rounded-full focus:ring-indigo-300 w-72 focus:w-80 dark:bg-[#0d1117] '
                 />
-                <span className='absolute py-[3px] px-[6px] text-[10px] border rounded-sm light_color right-3 -translate-y-1/2 top-1/2 border-[#8d96a0]/50 bg-white leading-none dark:bg-[#0d1117] pointer-events-none'>/</span>
+                {searchValue.length === 0 && <span className='absolute gap-1 italic font-normal -translate-y-1/2 pointer-events-none top-1/2 left-10 light_color '>
+                  Type <span className=' px-[4px] text-[12px] py-[1px] border rounded-[4px] light_color border-[#4b5563]    dark:border-[#8d96a0] mx-[2px]'>/</span> to Search
+                </span>}
+                {/* <span className='absolute py-[3px] px-[6px] text-[10px] border rounded-sm light_color right-3 -translate-y-1/2 top-1/2 border-[#8d96a0]/50 bg-white leading-none dark:bg-[#0d1117] pointer-events-none'>/</span> */}
               </div>
             </div>)
           }
