@@ -101,7 +101,7 @@ export const createBlog = async (post) => {
 
     if (!uploadedFile) throw Error;
 
-    const fileUrl = getFilePreview(uploadedFile.$id)
+    const fileUrl = getFilePreview(uploadedFile.$id, 394, 700)
     console.log(uploadedFile)
 
     if (!fileUrl) {
@@ -170,7 +170,7 @@ export const getFilePreview = (fileId, height = 0, width = 0) => {
       1,                  // full opacity
       0,                  // no rotation
       'FFFFFF',           // background color
-      'webp'
+      'jpg'
     );
 
     return file;
