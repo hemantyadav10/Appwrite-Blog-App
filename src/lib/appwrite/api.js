@@ -170,7 +170,7 @@ export const getFilePreview = (fileId, height = 0, width = 0) => {
       1,                  // full opacity
       0,                  // no rotation
       'FFFFFF',           // background color
-      'jpg'
+      'webp'
     );
 
     return file;
