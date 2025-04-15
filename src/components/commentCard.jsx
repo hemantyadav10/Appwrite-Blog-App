@@ -75,9 +75,12 @@ function CommentCard({ comment, blogOwnerId, blogId }) {
         <div className=' size-10'>
           {comment?.authors.imageUrl ?
             <img
-              src={comment?.authors.imageUrl}
+              src={comment?.authors.imageUrl || '/noUser.webp'}
               alt={comment?.authors.name}
               className='object-cover object-center w-full h-full italic rounded-full'
+              onError={(e) => {
+                e.target.src = '/noUser.webp'
+              }}        
             />
             :
             <div className="relative overflow-hidden transition-all bg-gray-100 rounded-full size-8 dark:bg-gray-600">
@@ -168,7 +171,7 @@ function CommentCard({ comment, blogOwnerId, blogId }) {
                 onChange={e => setContent(e.target.value)}
                 className={`min-h-[52px] bg-gray-100 dark:bg-[#21262d]`}
                 autoFocus
-                
+
                 disabled={loading}
                 dependencies={isEditable ? "editable" : "not editable"}
               />

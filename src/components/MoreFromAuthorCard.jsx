@@ -22,9 +22,12 @@ function MoreFromAuthorCard({ blog, authorInfo = true }) {
       >
         <img
           loading='lazy'
-          src={featuredImage}
+          src={featuredImage || '/fallback.webp'}
           alt={title}
           className='object-cover object-center w-full h-full aspect-video'
+          onError={(e) => {
+            e.target.src = '/fallback.webp'
+          }}
         />
       </Link>
       <div className='flex items-center w-full '>
@@ -47,9 +50,12 @@ function MoreFromAuthorCard({ blog, authorInfo = true }) {
                 <span className='mr-1 size-5'>
                   <img
                     loading='lazy'
-                    src={blog?.creator?.imageUrl}
+                    src={blog?.creator?.imageUrl || '/noUser.webp'}
                     alt={`${name}'s profile picture`}
                     className='object-cover object-center w-full h-full rounded-full size-5'
+                    onError={(e) => {
+                      e.target.src = '/noUser.webp'
+                    }}
                   />
                 </span>
                 <p className='font-medium capitalize group-hover:underline'>

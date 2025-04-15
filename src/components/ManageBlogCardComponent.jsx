@@ -34,9 +34,12 @@ function ManageBlogCardComponent({ blog }) {
       <div className='flex gap-6 xl:col-span-8'>
         <div className=' size-24 min-w-24'>
           <img
-            src={blog?.featuredImage}
+            src={blog?.featuredImage || '/fallback.webp'}
             alt={blog?.title}
             className='object-cover object-center w-full h-full aspect-square'
+            onError={(e) => {
+              e.target.src = '/fallback.webp'
+            }}
           />
         </div>
         <div className='flex flex-col gap-3'>

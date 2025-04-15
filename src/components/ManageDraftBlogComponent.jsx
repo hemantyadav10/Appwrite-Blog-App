@@ -8,20 +8,23 @@ function ManageDraftBlogComponent({ blog }) {
         <div className='flex gap-6 xl:col-span-8'>
           <div className=' size-24 min-w-24'>
             <img
-              src={blog?.featuredImage}
+              src={blog?.featuredImage || '/fallback.webp'}
               alt={blog?.title}
               className='object-cover object-center w-full h-full aspect-square'
+              onError={(e) => {
+                e.target.src = '/fallback.webp'
+              }}
             />
           </div>
           <div className='flex flex-col gap-3'>
-            <p 
+            <p
               className='text-lg font-semibold xl:text-xl color'
             >
               {blog?.title}
             </p>
             <div className='flex gap-6 text-sm'>
               <Link
-                to={`/editor/${blog?.$id}`} 
+                to={`/editor/${blog?.$id}`}
                 state={'publish draft'}
                 className='underline hover:opacity-70 color active:opacity-100'
               >

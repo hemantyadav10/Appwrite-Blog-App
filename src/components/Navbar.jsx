@@ -196,7 +196,7 @@ function Navbar() {
                   onChange={e => setSearchValue(e.target.value)}
                   icon={SearchIcon}
                   onKeyDown={handleSearch}
-                  style={{ transition:'width 200ms linear' }}
+                  style={{ transition: 'width 200ms linear' }}
                   className='font-normal rounded-full focus:ring-indigo-300 w-72 focus:w-80 dark:bg-[#0d1117] '
                 />
                 {searchValue.length === 0 && <span className='absolute gap-1 italic font-normal -translate-y-1/2 pointer-events-none top-1/2 left-10 light_color '>
@@ -247,11 +247,14 @@ function Navbar() {
                   className={`flex items-center justify-center transition-colors rounded-full hover:brightness-90 size-8  ${!openMenu && 'peer'} aspect-square`}>
                   {user?.imageUrl ?
                     <img
-                      src={user.imageUrl}
+                      src={user.imageUrl || '/noUser.webp'}
                       alt={user.name}
                       className='object-cover object-center rounded-full size-8 aspect-square'
                       width='104'
                       height='104'
+                      onError={(e) => {
+                        e.target.src = '/noUser.webp'
+                      }}
                     />
                     :
                     <div className="relative overflow-hidden transition-all bg-gray-100 rounded-full size-8 dark:bg-gray-600">

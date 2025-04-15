@@ -17,11 +17,14 @@ function TrendingCard({ blog }) {
       >
         <img
           loading='lazy'
-          src={blog?.featuredImage}
+          src={blog?.featuredImage || '/fallback.webp'}
           alt={blog?.title}
           className='object-cover object-center w-full aspect-square'
           height='720'
           width='400'
+          onError={(e) => {
+            e.target.src = '/fallback.webp'
+          }}
         />
       </Link>
       <div className='flex flex-col justify-center col-span-6 gap-2 lg:gap-1'>

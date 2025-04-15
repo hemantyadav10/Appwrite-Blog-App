@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useUserContext } from '../context/UserContext'
-import {UsernameIcon, MailIcon, ProfileIcon} from '../assets/index'
+import { UsernameIcon, MailIcon, ProfileIcon } from '../assets/index'
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { useCheckUsernameUnique, useUpdateAuthorDetails, useUpdateProfileImg } from '../lib/react-query/queries';
@@ -53,10 +53,10 @@ function EditProfile() {
           localStorage.setItem('user', JSON.stringify({ ...user, imageId: img.imageId, imageUrl: img.imageUrl, }));
 
           setUpdatedProfileImg(null);
-          toast.update(id, { render: 'Uploaded', type: 'success', isLoading: false, autoClose: 5000, closeOnClick:true });
+          toast.update(id, { render: 'Uploaded', type: 'success', isLoading: false, autoClose: 5000, closeOnClick: true });
         },
         onError: (error) => {
-          toast.update(id, { render: error.message, type: 'error', isLoading: false, autoClose: 5000, closeOnClick:true });
+          toast.update(id, { render: error.message, type: 'error', isLoading: false, autoClose: 5000, closeOnClick: true });
         },
         onSettled: () => {
           setInputDisable(false);
@@ -91,7 +91,7 @@ function EditProfile() {
       if (updatedFields.username) {
         const isUnique = await checkUsernameMutation.mutateAsync(updatedFields.username);
         if (isUnique.length !== 0) {
-          toast.update(id, { render: "Username is already taken.", type: "error", isLoading: false, autoClose: 5000, closeOnClick:true });
+          toast.update(id, { render: "Username is already taken.", type: "error", isLoading: false, autoClose: 5000, closeOnClick: true });
           setUpdatingProfile(false);
           return;
         }
@@ -106,11 +106,11 @@ function EditProfile() {
           setUser(updatedUser);
           localStorage.setItem('user', JSON.stringify(updatedUser));
 
-          toast.update(id, { render: "Updated Successfully", type: "success", isLoading: false, autoClose: 5000, closeOnClick:true });
+          toast.update(id, { render: "Updated Successfully", type: "success", isLoading: false, autoClose: 5000, closeOnClick: true });
         },
         onError: (error) => {
           console.error(error);
-          toast.update(id, { render: error.message, type: "error", isLoading: false, autoClose: 5000, closeOnClick:true });
+          toast.update(id, { render: error.message, type: "error", isLoading: false, autoClose: 5000, closeOnClick: true });
         },
         onSettled: () => {
           setUpdatingProfile(false);
@@ -118,7 +118,7 @@ function EditProfile() {
       });
     } catch (error) {
       console.error(error);
-      toast.update(id, { render: error.message, type: "error", isLoading: false, autoClose: 5000, closeOnClick:true });
+      toast.update(id, { render: error.message, type: "error", isLoading: false, autoClose: 5000, closeOnClick: true });
       setUpdatingProfile(false);
     }
   };
@@ -140,8 +140,11 @@ function EditProfile() {
                 <div className={`absolute inset-0 flex text-xs font-semibold items-center justify-center text-white transition-opacity rounded-full opacity-0 bg-black/70 dark:bg-black/60 group-hover:opacity-100 ${inputDisable && 'hidden'}`}>Upload Image</div>
                 <img
                   alt='profile_image'
-                  src={updatedProfileImg || user.imageUrl}
+                  src={updatedProfileImg || user.imageUrl || '/noUser.webp'}
                   className='object-cover object-center rounded-full size-24'
+                  onError={(e) => {
+                    e.target.src = '/noUser.webp'
+                  }}
                 />
                 <input
                   onChange={handleImagePreview}
@@ -183,7 +186,7 @@ function EditProfile() {
                 icon={MailIcon}
                 disabled={true}
                 className='rounded-lg '
-                divClassName = 'opacity-60'
+                divClassName='opacity-60'
               />
             </div>
             <div className='flex flex-col w-full gap-1 '>

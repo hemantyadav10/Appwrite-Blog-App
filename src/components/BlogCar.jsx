@@ -64,12 +64,15 @@ function BlogCard({ blog }) {
       <Link to={`/blog/${slug}`}
         className='w-full overflow-hidden aspect-video sm:aspect-[7/5]  col-span-5 h-full rounded-t-md sm:rounded-none'>
         <img
-          src={featuredImage}
+          src={featuredImage || '/fallback.webp'}
           alt={title}
           loading='lazy'
           className='object-cover object-center w-full h-full '
           width='720'
           height='400'
+          onError={(e) => {
+            e.target.src = '/fallback.webp'
+          }}
         />
       </Link>
       <div className='flex flex-col justify-center w-full col-span-7 px-3 sm:px-0'>
@@ -146,12 +149,15 @@ function BlogCard({ blog }) {
             >
               <span className='mr-1 size-5 aspect-square'>
                 <img
-                  src={imageUrl}
+                  src={imageUrl || '/noUser.webp'}
                   alt=""
                   className='object-cover object-center rounded-full size-5 aspect-square'
                   width='104'
                   height='104'
                   loading='lazy'
+                  onError={(e) => {
+                    e.target.src = '/noUser.webp'
+                  }}        
                 />
               </span>
               <p

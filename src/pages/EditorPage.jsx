@@ -221,8 +221,10 @@ function EditorPage() {
             <CloseButton className='stroke-red-500 size-3' />
           </button>
           }
-          {banner && <img src={banner} alt={'blog banner image'}
-            className='object-cover object-center w-full aspect-video' />}
+          {banner && <img src={banner || '/fallback.webp'} alt={'blog banner image'}
+            className='object-cover object-center w-full aspect-video' onError={(e) => {
+              e.target.src = '/fallback.webp'
+            }}/>}
           {!banner && <label htmlFor="uploadThumbnail" className='flex flex-col items-center justify-center md:text-4xl font-semibold text-gray-300 transition-colors size-full dark:text-[#8d96a0] text-2xl cursor-pointer gap-2'>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-8 md:size-12 ">
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />

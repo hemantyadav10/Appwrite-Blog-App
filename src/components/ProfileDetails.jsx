@@ -10,10 +10,14 @@ function ProfileDetails({ profileImage, username, name, profileId, loadingBlogs,
   return (
     <>
       <div className='rounded-full size-24 '>
-        <img src={profileImage ? profileImage : ''} alt="profile image" className='object-cover object-center w-full h-full rounded-full' />
+        <img src={profileImage ? profileImage : '/noUser.webp'} alt="profile image" className='object-cover object-center w-full h-full rounded-full'
+          onError={(e) => {
+            e.target.src = '/noUser.webp'
+          }}
+        />
       </div>
       <p className='flex items-center text-lg font-semibold color'>
-        <UsernameIcon className='size-6'/>
+        <UsernameIcon className='size-6' />
         {username}
       </p>
       <p className='capitalize color'>

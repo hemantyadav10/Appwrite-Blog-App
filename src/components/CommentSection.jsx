@@ -36,9 +36,12 @@ function CommentSection({ blogId, blogOwnerId, slug, commentCount }) {
               className='flex items-center justify-center rounded-full size-10'>
               {user?.imageUrl ?
                 <img
-                  src={user.imageUrl}
+                  src={user.imageUrl || '/noUser.webp'}
                   alt={user.name}
                   className='object-cover object-center w-full h-full italic rounded-full'
+                  onError={(e) => {
+                    e.target.src = '/noUser.webp'
+                  }}
                 />
                 :
                 <div className="relative overflow-hidden transition-all bg-gray-100 rounded-full size-10 dark:bg-gray-600">

@@ -98,9 +98,12 @@ function BlogPage() {
           <div className='w-full h-auto aspect-video'>
             <img
               loading='eager'
-              src={blogData?.featuredImage || ''}
+              src={blogData?.featuredImage || '/fallback.webp'}
               alt={blogData?.title || 'blog banner'}
               className='object-cover object-center w-full aspect-video '
+              onError={(e) => {
+                e.target.src = '/fallback.webp'
+              }}
             />
           </div>
           <div className='flex items-start gap-4 '>
@@ -109,9 +112,12 @@ function BlogPage() {
               className='transition-colors hover:brightness-90 size-10'
             >
               <img
-                src={blogData?.creator.imageUrl || ''}
+                src={blogData?.creator.imageUrl || '/noUser.webp'}
                 alt={'author image'}
                 className='object-cover object-center w-full h-full rounded-full'
+                onError={(e) => {
+                  e.target.src = '/noUser.webp'
+                }}
               />
             </Link>
             <div className='flex flex-col gap-1 '>
