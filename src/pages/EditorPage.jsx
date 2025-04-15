@@ -163,7 +163,7 @@ function EditorPage() {
 
   return (
     <form onSubmit={publishBlog} className='flex flex-col items-center w-full  dark:text-[#E6EDF3]  flex-1 dark:bg-[#0d1117] bg-white  transition-all '>
-      <div className='flex items-center justify-between  h-16 gap-3 px-4 text-xs font-semibold md:gap-4 md:text-sm lg:px-10 sm:px-6 sm:h-[72px] sticky top-0 z-20 bg-white w-full dark:bg-[#151b23] backdrop-blur-md  transition-colors shadow-md dark:shadow-black/40'>
+      <div className='flex items-center justify-between  h-16 gap-3 px-4 text-xs font-semibold md:gap-4 md:text-sm lg:px-10 sm:px-6 sm:h-[72px] sticky top-0 z-50 bg-white w-full dark:bg-[#151b23] backdrop-blur-md  transition-colors shadow-md border-b border-transparent dark:border-b-[#30363D]'>
         <div><Logo /></div>
         <div className='flex items-center gap-3 md:gap-4'>
           <button
