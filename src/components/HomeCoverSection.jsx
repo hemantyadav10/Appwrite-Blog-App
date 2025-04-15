@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 function HomeCoverSection({ }) {
   return (
     <div className='relative w-full p-2 pt-10 text-center md:pt-20 '>
-      <div class="absolute pointer-events-none w-[500px] h-[500px] rounded-full opacity-20 bg-gradient-to-t from-blue-500 to-indigo-500 blur-[100px] -translate-y-1/2 left-1/2 -translate-x-1/2 top-0 hidden dark:block" ></div>
+      <div class="absolute pointer-events-none max-w-[500px] max-h-[500px] w-full h-full rounded-full opacity-20 bg-gradient-to-t from-blue-500 to-indigo-500 blur-[100px] -translate-y-1/2 left-1/2 -translate-x-1/2 top-0 hidden dark:block" ></div>
       <div className='space-y-4 '>
         <p className='text-3xl font-bold text-transparent transition-colors md:text-5xl bg-clip-text dark:bg-gradient-to-b dark:from-neutral-50 dark:to-neutral-400 bg-gradient-to-b from-gray-500 to-black'>
           <span className='text-transparent transition-colors bg-gradient-to-r from-indigo-400 to-indigo-900 bg-clip-text'>Infinite</span>Ink: Where Ideas Flow</p>
