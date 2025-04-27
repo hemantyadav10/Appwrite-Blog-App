@@ -74,7 +74,7 @@ export const useGetMoreBlogsFromAuthor = (authorId, blogId) => {
   return useQuery({
     queryKey: ['author', authorId, blogId],
     queryFn: () => getMoreBlogsFromAuthor(authorId, blogId),
-    enabled: !!authorId,
+    enabled: !!authorId && !!blogId,
   })
 }
 
@@ -82,7 +82,7 @@ export const useGetRelatedBlogs = (category, tags, blogId) => {
   return useQuery({
     queryKey: ['relatedBlogs', category, tags, blogId],
     queryFn: () => getRelatedBlogs(category, tags, blogId),
-    enabled: !!category,
+    enabled: !!category && !!tags && !!blogId,
   });
 }
 
@@ -233,7 +233,7 @@ export const useLikeBlog = (blogId) => {
     },
 
     onSettled: () => {
-      queryClient.invalidateQueries(['likes', blogId]);
+      queryClient.invalidateQueries({ queryKey: ['likes', blogId] });
     },
   });
 };
@@ -279,8 +279,10 @@ export const usesaveUnsaveBlog = (blogId) => {
     },
 
     onSettled: () => {
-      queryClient.invalidateQueries({queryKey:['saves', blogId]});
-      queryClient.invalidateQueries({queryKey:['saved-blogs']});
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['saves', blogId] }),
+        queryClient.invalidateQueries({ queryKey: ['saved-blogs'] })
+      ]);
     },
   });
 };
@@ -321,7 +323,7 @@ export const useUpdateProfileImg = (userId) => {
     mutationFn: ({ userId, image, previousImageId }) =>
       updateProfileImg(userId, image, previousImageId),
     onSuccess: () => {
-      queryClient.invalidateQueries(['user', userId]);
+      queryClient.invalidateQueries({ queryKey: ['user', userId] });
     }
   }
   );
@@ -333,7 +335,7 @@ export const useUpdateAuthorDetails = (userId) => {
   return useMutation({
     mutationFn: ({ authorId, updatedFields }) => updateAuthorDetails(authorId, updatedFields),
     onSuccess: () => {
-      queryClient.invalidateQueries(['user', userId]);
+      queryClient.invalidateQueries([]);
     }
   }
   );
@@ -393,9 +395,10 @@ export const useCreateBlog = () => {
   return useMutation({
     mutationFn: (data) => createBlog(data),
     onSuccess: (newBlog) => {
-      queryClient.invalidateQueries([['recent_blogs']])
-      queryClient.invalidateQueries({ queryKey: ['user-blogs', newBlog.creator.$id] })
-
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['recent_blogs'] }),
+        queryClient.invalidateQueries({ queryKey: ['user-blogs', newBlog.creator.$id] })
+      ]);
     }
   })
 }
@@ -405,12 +408,13 @@ export const useUpdateBlog = (blogId) => {
   return useMutation({
     mutationFn: (data) => updateBlog(data),
     onSuccess: (updatedBlog) => {
-      console.log(updatedBlog)
-      queryClient.invalidateQueries({ queryKey: ['relatedBlogs', updatedBlog.$id] })
-      queryClient.invalidateQueries({ queryKey: ['blog', blogId] })
-      queryClient.invalidateQueries({ queryKey: ['recent_blogs'] })
-      queryClient.invalidateQueries({ queryKey: ['trending blogs'] })
-      queryClient.invalidateQueries({ queryKey: ['user-blogs', updatedBlog.creator.$id] })
+      Promise.all([,
+        queryClient.invalidateQueries({ queryKey: ['relatedBlogs', updatedBlog.$id] }),
+        queryClient.invalidateQueries({ queryKey: ['blog', blogId] }),
+        queryClient.invalidateQueries({ queryKey: ['recent_blogs'] }),
+        queryClient.invalidateQueries({ queryKey: ['trending blogs'] }),
+        queryClient.invalidateQueries({ queryKey: ['user-blogs', updatedBlog.creator.$id] }),
+      ]);
     }
   })
 }
@@ -467,8 +471,8 @@ export const useUnsaveBlog = (userId, blogId) => {
       queryClient.setQueryData(['saved-blog', userId], context.previousData);
     },
     onSettled: () => {
-      queryClient.invalidateQueries({queryKey:['saves', blogId]});
-      queryClient.invalidateQueries({queryKey:['saved-blog', blogId]});
+      queryClient.invalidateQueries({ queryKey: ['saves', blogId] });
+      queryClient.invalidateQueries({ queryKey: ['saved-blog', blogId] });
     },
   })
 }
