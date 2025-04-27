@@ -2,9 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { slugify, convertToReadableTime } from '../utils/index'
 import usePrefetchBlogData from '../hooks/usePrefetchBlogData';
+import { getCloudinaryImage } from '../lib/cloudinary/cloudinary';
+import { AdvancedImage, lazyload, placeholder } from '@cloudinary/react';
 
 function TrendingCard({ blog }) {
   const { handleMouseEnter, handleMouseLeave, prefetchBlogData } = usePrefetchBlogData(blog.$id);
+  const myImage = getCloudinaryImage(blog?.imageId);
 
   return (
     <div className='grid w-full grid-cols-8 gap-6 lg:gap-4'>
@@ -15,17 +18,7 @@ function TrendingCard({ blog }) {
         onFocus={prefetchBlogData}
         className='flex items-center col-span-2 overflow-hidden rounded-lg aspect-square'
       >
-        <img
-          loading='lazy'
-          src={blog?.featuredImage || '/fallback.webp'}
-          alt={blog?.title}
-          className='object-cover object-center w-full aspect-square'
-          height='720'
-          width='400'
-          onError={(e) => {
-            e.target.src = '/fallback.webp'
-          }}
-        />
+        {blog?.imageId && <AdvancedImage cldImg={myImage} plugins={[lazyload(), placeholder({ mode: "blur" })]} className="object-cover object-center w-full h-full rounded-lg" />}
       </Link>
       <div className='flex flex-col justify-center col-span-6 gap-2 lg:gap-1'>
         <Link

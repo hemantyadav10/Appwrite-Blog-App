@@ -279,7 +279,8 @@ export const usesaveUnsaveBlog = (blogId) => {
     },
 
     onSettled: () => {
-      queryClient.invalidateQueries(['saves', blogId]);
+      queryClient.invalidateQueries({queryKey:['saves', blogId]});
+      queryClient.invalidateQueries({queryKey:['saved-blogs']});
     },
   });
 };
@@ -466,8 +467,8 @@ export const useUnsaveBlog = (userId, blogId) => {
       queryClient.setQueryData(['saved-blog', userId], context.previousData);
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['saves', blogId]);
-      queryClient.invalidateQueries(['saved-blog', blogId]);
+      queryClient.invalidateQueries({queryKey:['saves', blogId]});
+      queryClient.invalidateQueries({queryKey:['saved-blog', blogId]});
     },
   })
 }

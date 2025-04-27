@@ -1,5 +1,6 @@
 import { ID, Query } from "appwrite";
 import { account, appwriteConfig, databases, storage, avatars } from "./config";
+import { deleteFromCloudinary, uploadToCloudinary } from "../cloudinary/cloudinary";
 
 // ======================= SIGN UP USER
 export const createUserAccount = async (user) => {
@@ -97,17 +98,13 @@ export const signOutAccount = async () => {
 export const createBlog = async (post) => {
   try {
 
-    const uploadedFile = await uploadFile(post.featuredImage);
+    const uploadedFile = await uploadToCloudinary(post.featuredImage)
 
-    if (!uploadedFile) throw Error;
+    if (!uploadedFile) throw new Error('Image upload failed');
 
-    const fileUrl = getFilePreview(uploadedFile.$id, 394, 700)
-    console.log(uploadedFile)
+    const fileUrl = uploadedFile.secure_url;
 
-    if (!fileUrl) {
-      await deleteFile(uploadedFile.$id);
-      throw Error;
-    }
+    const uploadedUrl = fileUrl.replace('/upload/', '/upload/f_webp/');
 
     const newPost = await databases.createDocument(
       appwriteConfig.databaseId,
@@ -117,77 +114,26 @@ export const createBlog = async (post) => {
         creator: post.userId,
         title: post.title,
         description: post.description,
-        featuredImage: fileUrl.href,
+        featuredImage: uploadedUrl,
         tags: post.tags,
         category: post.category,
         content: post.content,
         readTime: post.readTime,
-        imageId: uploadedFile.$id,
+        imageId: uploadedFile.public_id,
         isPublished: post.isPublished
       }
     );
 
     if (!newPost) {
-      await deleteFile(uploadFile.$id);
+      await deleteFromCloudinary(uploadedFile.public_id);
       throw Error;
     }
 
     return newPost;
 
   } catch (error) {
-    console.log(error);
-  }
-}
-
-// ======================= UPLOAD IMAGE
-export const uploadFile = async (file) => {
-  try {
-    const uploadedFile = await storage.createFile(
-      appwriteConfig.storageId,
-      ID.unique(),
-      file
-    );
-
-    return uploadedFile;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-//  ======================= GET IMAGE URL
-export const getFilePreview = (fileId, height = 0, width = 0) => {
-  try {
-    const file = storage.getFilePreview(
-      appwriteConfig.storageId,
-      fileId,
-      width,               // width, will be resized using this value.
-      height,                  // height, ignored when 0
-      'center',           // crop center
-      '60',               // slight compression
-      0,                  // border width
-      '000000',           // border color
-      0,                 // border radius
-      1,                  // full opacity
-      0,                  // no rotation
-      'FFFFFF',           // background color
-      'webp'
-    );
-
-    return file;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-// ======================= DELETE IMAGE
-export const deleteFile = async (fileId) => {
-  try {
-    await storage.deleteFile(
-      appwriteConfig.storageId,
-      fileId
-    )
-  } catch (error) {
-    console.log(error);
+    console.error('createBlog error:', error);
+    throw error;
   }
 }
 
@@ -510,21 +456,19 @@ export const updateBlog = async (blog) => {
     }
     let imageId = ''
     if (blog.featuredImage instanceof File) {
-      await deleteFile(blog.imageId);
-      const uploadedFile = await uploadFile(blog.featuredImage);
+      await deleteFromCloudinary(blog.imageId);
 
-      if (!uploadedFile) throw Error;
+      const uploadedFile = await uploadToCloudinary(blog.featuredImage)
 
-      const fileUrl = getFilePreview(uploadedFile.$id, 394, 700)
+      if (!uploadedFile) throw new Error('Image upload failed');
 
-      if (!fileUrl) {
-        await deleteFile(uploadedFile.$id);
-        throw Error;
-      }
+      const fileUrl = uploadedFile.secure_url;
 
-      imageId = uploadedFile.$id
+      const uploadedUrl = fileUrl.replace('/upload/', '/upload/f_webp/');
 
-      data.featuredImage = fileUrl;
+      imageId = uploadedFile.public_id;
+
+      data.featuredImage = uploadedUrl;
       data.imageId = imageId;
     }
     const updatedBlog = await databases.updateDocument(
@@ -535,13 +479,13 @@ export const updateBlog = async (blog) => {
     );
 
     if (!updatedBlog) {
-      await deleteFile(imageId);
+      await deleteFromCloudinary(blog.imageId);
       throw Error;
     }
 
     return updatedBlog;
   } catch (error) {
-    console.log(error);
+    console.error('createBlog error:', error);
     throw error;
   }
 }
@@ -640,18 +584,16 @@ export const updatePassword = async (newPass, oldPass) => {
 export const updateProfileImg = async (userId, image, previousImageId) => {
 
   if (previousImageId) {
-    await deleteFile(previousImageId);
+    await deleteFromCloudinary(previousImageId);
   }
-  const uploadedImage = await uploadFile(image);
+  const uploadedImage = await uploadToCloudinary(image);
 
-  if (!uploadedImage) throw Error;
+  if (!uploadedImage) throw new Error('Image upload failed');
 
-  const fileUrl = getFilePreview(uploadedImage.$id, 104, 104)
+  const fileUrl = uploadedImage.secure_url;
 
-  if (!fileUrl) {
-    await deleteFile(uploadedImage.$id);
-    throw Error;
-  }
+  const imageUrl = fileUrl.replace('/upload/', '/upload/f_webp/');
+  const imageId = uploadedImage.public_id;
 
   try {
     const updatedProfile = await databases.updateDocument(
@@ -659,13 +601,13 @@ export const updateProfileImg = async (userId, image, previousImageId) => {
       appwriteConfig.userCollectionId,
       userId,
       {
-        imageUrl: fileUrl,
-        imageId: uploadedImage.$id
+        imageUrl,
+        imageId,
       }
     );
 
     if (!updatedProfile) {
-      await deleteFile(uploadedImage.$id);
+      await deleteFromCloudinary(imageId);
       throw Error;
     }
 
@@ -799,7 +741,7 @@ export const deleteBlog = async (blogId, imageId, savedUsers) => {
       await Promise.all(deletePromises);
     }
 
-    await deleteFile(imageId);
+    await deleteFromCloudinary(imageId);
 
     return response
   } catch (error) {

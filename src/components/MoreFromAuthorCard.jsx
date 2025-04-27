@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom'
 import { convertToReadableTime, slugify } from '../utils/index'
 import { Button } from './index';
 import usePrefetchBlogData from '../hooks/usePrefetchBlogData.js';
+import { getCloudinaryImage } from '../lib/cloudinary/cloudinary.js';
+import { AdvancedImage, lazyload, placeholder } from '@cloudinary/react';
 
 function MoreFromAuthorCard({ blog, authorInfo = true }) {
-  const { $createdAt, title, featuredImage, creator, category, readTime, $id: blogId } = blog;
+  const { $createdAt, title, featuredImage, creator, category, readTime, $id: blogId, imageId } = blog ?? {};
   const { name } = creator;
   const { handleMouseEnter, handleMouseLeave, prefetchBlogData } = usePrefetchBlogData(blogId);
-
+  const myImage = getCloudinaryImage(imageId);
 
   const slug = slugify(title) + '-' + blogId;
 
@@ -20,14 +22,10 @@ function MoreFromAuthorCard({ blog, authorInfo = true }) {
         to={`/blog/${slug}`}
         className='w-full overflow-hidden aspect-video rounded-t-md'
       >
-        <img
-          loading='lazy'
-          src={featuredImage || '/fallback.webp'}
-          alt={title}
-          className='object-cover object-center w-full h-full aspect-video'
-          onError={(e) => {
-            e.target.src = '/fallback.webp'
-          }}
+        <AdvancedImage
+          cldImg={myImage}
+          plugins={[lazyload({}), placeholder({ mode: "blur" })]}
+          className="object-cover object-center w-full aspect-video"
         />
       </Link>
       <div className='flex items-center w-full '>

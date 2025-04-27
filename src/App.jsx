@@ -5,26 +5,26 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Suspense, useEffect, useState } from 'react';
 import { Container, Loader } from './components/index';
 import Toast from './components/Toast';
-import MigrationBanner from './components/MigrationBanner';
+// import MigrationBanner from './components/MigrationBanner';
 
 function App() {
   const location = useLocation();
   const showFooter = location.pathname !== '/explore' && !location.pathname.startsWith('/editor')
   const showNavbar = !location.pathname.startsWith('/editor')
-  const [showNotification, setShowNotification] = useState(false)
+  // const [showNotification, setShowNotification] = useState(false)
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowNotification(true)
-    }, 500)
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setShowNotification(true)
+  //   }, 500)
 
-    return () => clearTimeout(timer)
-  }, [])
+  //   return () => clearTimeout(timer)
+  // }, [])
 
   return (
     <>
       <div className='flex flex-col min-h-screen dark:bg-[#0d1117] bg-white transition-all'>
-        {showNotification && <MigrationBanner setShowNotification={setShowNotification} showNotification={showNotification} />}
+        {/* {showNotification && <MigrationBanner setShowNotification={setShowNotification} showNotification={showNotification} />} */}
         {showNavbar && <Navbar />}
         <ScrollRestoration />
         <Toast />

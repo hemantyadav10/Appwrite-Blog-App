@@ -6,6 +6,8 @@ import { useUserContext } from '../context/UserContext';
 import { Loader, CommentSection, BlogInteractionSection, MoreBlogsSection, Button, ErrorPage, Tooltip } from '../components/index'
 import { useGetBlogById, useGetBlogComments, useGetBlogLikes, useGetBlogSaves, useGetMoreBlogsFromAuthor, useGetRelatedBlogs } from '../lib/react-query/queries'
 import useModal from '../hooks/useModal.js';
+import { AdvancedImage, lazyload, placeholder } from '@cloudinary/react';
+import { getCloudinaryImage } from '../lib/cloudinary/cloudinary.js';
 
 
 function BlogPage() {
@@ -32,6 +34,8 @@ function BlogPage() {
   const likeId = userLike?.$id;
   const saveId = userSave?.$id;
   const likeCount = likesData?.documents.length || 0;
+  const myImage = getCloudinaryImage(blogData?.imageId);
+
 
   useEffect(() => {
     if (state !== null && !loading) scrollToComments();
@@ -96,15 +100,7 @@ function BlogPage() {
             </p>
           </div>
           <div className='w-full h-auto aspect-video'>
-            <img
-              loading='eager'
-              src={blogData?.featuredImage || '/fallback.webp'}
-              alt={blogData?.title || 'blog banner'}
-              className='object-cover object-center w-full aspect-video '
-              onError={(e) => {
-                e.target.src = '/fallback.webp'
-              }}
-            />
+            <AdvancedImage cldImg={myImage} plugins={[placeholder({ mode: "blur" })]} className="object-cover object-center w-full aspect-video" />
           </div>
           <div className='flex items-start gap-4 '>
             <Link

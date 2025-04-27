@@ -1,13 +1,15 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useUserContext } from '../context/UserContext';
-import { slugify, convertToReadableTime } from '../utils/index'
-import { useDeleteBlog } from '../lib/react-query/queries';
-import useModal from '../hooks/useModal';
+import { AdvancedImage, lazyload, placeholder } from '@cloudinary/react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Tooltip, Modal, Button } from './index';
-import { ThreeDotsIcon, EditIcon, DeleteIcon, LikeIcon } from '../assets/index'
+import { DeleteIcon, EditIcon, LikeIcon, ThreeDotsIcon } from '../assets/index';
+import { useUserContext } from '../context/UserContext';
+import useModal from '../hooks/useModal';
 import usePrefetchBlogData from '../hooks/usePrefetchBlogData.js';
+import { getCloudinaryImage } from '../lib/cloudinary/cloudinary.js';
+import { useDeleteBlog } from '../lib/react-query/queries';
+import { convertToReadableTime, slugify } from '../utils/index';
+import { Button, Modal, Tooltip } from './index';
 
 function BlogCard({ blog }) {
   const { $createdAt, title, description, featuredImage, $id: blogId, creator, category, imageId, readTime, likesCount, save } = blog;
@@ -55,7 +57,7 @@ function BlogCard({ blog }) {
     }
   }, []);
 
-
+  const myImage = getCloudinaryImage(imageId);
 
   return (
     <div
@@ -63,17 +65,7 @@ function BlogCard({ blog }) {
     >
       <Link to={`/blog/${slug}`}
         className='w-full overflow-hidden aspect-video sm:aspect-[7/5]  col-span-5 h-full rounded-t-md sm:rounded-none'>
-        <img
-          src={featuredImage || '/fallback.webp'}
-          alt={title}
-          loading='lazy'
-          className='object-cover object-center w-full h-full '
-          width='720'
-          height='400'
-          onError={(e) => {
-            e.target.src = '/fallback.webp'
-          }}
-        />
+        <AdvancedImage cldImg={myImage} plugins={[lazyload(), placeholder({ mode: "blur" })]} className="object-cover object-center w-full h-full" />
       </Link>
       <div className='flex flex-col justify-center w-full col-span-7 px-3 sm:px-0'>
         <div className='flex flex-col justify-between w-full gap-3 '>
