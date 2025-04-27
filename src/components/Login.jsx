@@ -8,7 +8,7 @@ import { Input, Button } from '../components/index'
 import { useSignInAccount } from '../lib/react-query/queries';
 
 function Login() {
-  const { checkAuthUser } = useUserContext();
+  const { checkAuthUser, loading } = useUserContext();
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { mutateAsync: signInAccount, isPending: isLoading } = useSignInAccount();
@@ -93,10 +93,10 @@ function Login() {
       </Link>
       <Button
         type='submit'
-        disabled={isLoading}
+        disabled={isLoading || loading}
         className={`w-full py-3 rounded-lg `}
       >
-        {isLoading ? (
+        {(isLoading || loading) ? (
           <div className='flex items-center gap-2'>
             <div className='border-2 border-transparent rounded-full border-t-white size-4 border-r-white animate-customSpin'></div>
             Signing in

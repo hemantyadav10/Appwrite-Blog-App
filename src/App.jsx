@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Suspense, useEffect, useState } from 'react';
 import { Container, Loader } from './components/index';
 import Toast from './components/Toast';
+import Loader2 from './components/Loader2';
 // import MigrationBanner from './components/MigrationBanner';
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
         {showNavbar && <Navbar />}
         <ScrollRestoration />
         <Toast />
-        <Suspense fallback={<Container><Loader size={4} className='justify-end ' /></Container>}>
+        <Suspense fallback={<Container><div className='flex items-center justify-center flex-1 w-full'><Loader2 /></div></Container>}>
           <Outlet />
         </Suspense>
         {showFooter && <Footer />}

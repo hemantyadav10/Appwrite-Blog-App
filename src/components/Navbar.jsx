@@ -11,7 +11,7 @@ function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef(null);
   const searchRef = useRef(null);
-  const { user, setUser, setIsAuthenticated, isAuthenticated } = useUserContext();
+  const { user, setUser, setIsAuthenticated, isAuthenticated, loading: loadingUser } = useUserContext();
   const { theme, setTheme } = useThemeContext();
   const location = useLocation();
   const navigate = useNavigate();
@@ -196,7 +196,6 @@ function Navbar() {
                   onChange={e => setSearchValue(e.target.value)}
                   icon={SearchIcon}
                   onKeyDown={handleSearch}
-                  style={{ transition: 'width 200ms linear' }}
                   className='font-normal rounded-full focus:ring-indigo-300 w-72 focus:w-80 dark:bg-[#0d1117] '
                 />
                 {searchValue.length === 0 && <span className='absolute gap-1 italic font-normal -translate-y-1/2 pointer-events-none top-1/2 left-10 light_color '>
@@ -238,65 +237,69 @@ function Navbar() {
           </div>
           {isAuthenticated ? (
             <>
-              <div
-                ref={menuRef}
-                className='relative flex items-center gap-6'
-              >
-                <button
-                  onClick={handleClick}
-                  className={`flex items-center justify-center transition-colors rounded-full hover:brightness-90 size-8  ${!openMenu && 'peer'} aspect-square`}>
-                  {user?.imageUrl ?
-                    <img
-                      src={user.imageUrl || '/noUser.webp'}
-                      alt={user.name}
-                      className='object-cover object-center rounded-full size-8 aspect-square'
-                      width='104'
-                      height='104'
-                      onError={(e) => {
-                        e.target.src = '/noUser.webp'
-                      }}
-                    />
-                    :
-                    <div className="relative overflow-hidden transition-all bg-gray-100 rounded-full size-8 dark:bg-gray-600">
-                      <svg className="absolute w-10 h-10 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>
-                    </div>
-                  }
-                </button>
-                <Tooltip content={capitalizeWords(user.name)} />
+              {loadingUser ? (
+                <div className='w-8 h-8 bg-gray-200 rounded-full dark:bg-gray-700 animate-customPulse' />
+              ) : (
                 <div
-                  className={`absolute  border shadow-md right-0 translate-y-4 top-full bg-white   w-56  ${openMenu ? '' : 'hidden'} rounded-lg  z-10 py-2  text-sm   dark:border-[#30363D] dark:bg-[#151b23] color dark:shadow-black/50`}
+                  ref={menuRef}
+                  className='relative flex items-center gap-6'
                 >
-                  <ul className='flex flex-col gap-1 list-none'>
-                    <li className='flex flex-col items-start gap-2 px-4 color'>
-                      <p className='capitalize '>{user.name}</p>
-                      <p className='flex items-center '>
-                        <UsernameIcon className=' size-5' />{user?.username}
-                      </p>
-                    </li>
-                    <hr className='my-2 dark:border-[#30363D] transition-colors' />
-                    {menuItems.map((item) => (
-                      <NavLink
-                        to={item.slug}
-                        key={item.name}
-                        onClick={() => setOpenMenu(false)}
-                        className={({ isActive }) => `${isActive && 'bg-gray-100  dark:bg-[#2b313a]'} flex items-center gap-2  medium_color group active:bg-gray-200  hover:bg-gray-100 py-3 px-4 w-full dark:hover:bg-[#262c36]  dark:active:bg-[#2a313c]`}
+                  <button
+                    onClick={handleClick}
+                    className={`flex items-center justify-center transition-colors rounded-full hover:brightness-90 size-8  ${!openMenu && 'peer'} aspect-square`}>
+                    {user?.imageUrl ?
+                      <img
+                        src={user.imageUrl || '/noUser.webp'}
+                        alt={user.name}
+                        className='object-cover object-center rounded-full size-8 aspect-square'
+                        width='104'
+                        height='104'
+                        onError={(e) => {
+                          e.target.src = '/noUser.webp'
+                        }}
+                      />
+                      :
+                      <div className="relative overflow-hidden transition-all bg-gray-100 rounded-full size-8 dark:bg-gray-600">
+                        <svg className="absolute w-10 h-10 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>
+                      </div>
+                    }
+                  </button>
+                  <Tooltip content={capitalizeWords(user.name)} />
+                  <div
+                    className={`absolute  border shadow-md right-0 translate-y-4 top-full bg-white   w-56  ${openMenu ? '' : 'hidden'} rounded-lg  z-10 py-2  text-sm   dark:border-[#30363D] dark:bg-[#151b23] color dark:shadow-black/50`}
+                  >
+                    <ul className='flex flex-col gap-1 list-none'>
+                      <li className='flex flex-col items-start gap-2 px-4 color'>
+                        <p className='capitalize '>{user.name}</p>
+                        <p className='flex items-center '>
+                          <UsernameIcon className=' size-5' />{user?.username}
+                        </p>
+                      </li>
+                      <hr className='my-2 dark:border-[#30363D] transition-colors' />
+                      {menuItems.map((item) => (
+                        <NavLink
+                          to={item.slug}
+                          key={item.name}
+                          onClick={() => setOpenMenu(false)}
+                          className={({ isActive }) => `${isActive && 'bg-gray-100  dark:bg-[#2b313a]'} flex items-center gap-2  medium_color group active:bg-gray-200  hover:bg-gray-100 py-3 px-4 w-full dark:hover:bg-[#262c36]  dark:active:bg-[#2a313c]`}
+                        >
+                          {item.icon && <item.icon className='size-5 medium_color' />}
+                          {item.name}
+                        </NavLink>
+                      ))}
+                      <hr className='my-2 dark:border-[#30363D] transition-colors' />
+                      <button
+                        disabled={loading}
+                        onClick={handleLogout}
+                        className='flex items-center gap-2 medium_color transition-colors active:bg-gray-200  hover:bg-gray-100 py-3 px-4 w-full dark:hover:bg-[#262c36]  dark:active:bg-[#2a313c] disabled:opacity-80'
                       >
-                        {item.icon && <item.icon className='size-5 medium_color' />}
-                        {item.name}
-                      </NavLink>
-                    ))}
-                    <hr className='my-2 dark:border-[#30363D] transition-colors' />
-                    <button
-                      disabled={loading}
-                      onClick={handleLogout}
-                      className='flex items-center gap-2 medium_color transition-colors active:bg-gray-200  hover:bg-gray-100 py-3 px-4 w-full dark:hover:bg-[#262c36]  dark:active:bg-[#2a313c] disabled:opacity-80'
-                    >
-                      <LogoutIcon className='medium_color size-5' />
-                      {loading ? 'Signing out...' : 'Sign out'}
-                    </button>
-                  </ul>
+                        <LogoutIcon className='medium_color size-5' />
+                        {loading ? 'Signing out...' : 'Sign out'}
+                      </button>
+                    </ul>
+                  </div>
                 </div>
-              </div>
+              )}
             </>
           )
             : (location.pathname === '/login'
@@ -323,7 +326,7 @@ function Navbar() {
                 </Link>
               ))
           }
-        </div>
+        </div >
       </nav >
     </>
   )

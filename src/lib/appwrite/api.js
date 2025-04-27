@@ -581,10 +581,15 @@ export const updatePassword = async (newPass, oldPass) => {
 }
 
 // ============================== UPDATE PROFILE IMAGE
-export const updateProfileImg = async (userId, image, previousImageId) => {
+export const updateProfileImg = async (userId, image) => {
+  const user = await databases.getDocument(
+    appwriteConfig.databaseId,
+    appwriteConfig.userCollectionId,
+    userId,
+  );
 
-  if (previousImageId) {
-    await deleteFromCloudinary(previousImageId);
+  if (user.imageId) {
+    await deleteFromCloudinary(user.imageId);
   }
   const uploadedImage = await uploadToCloudinary(image);
 

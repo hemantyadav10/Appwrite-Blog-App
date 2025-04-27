@@ -4,10 +4,10 @@ import { UsernameIcon, MailIcon, ProfileIcon } from '../assets/index'
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { useCheckUsernameUnique, useUpdateAuthorDetails, useUpdateProfileImg } from '../lib/react-query/queries';
-import { TextArea, Button, Input } from './index'
+import { TextArea, Button, Input, Loader } from './index'
 
 function EditProfile() {
-  const { user, setUser } = useUserContext();
+  const { user, setUser, loading } = useUserContext();
   const [bio, setBio] = useState(user.bio || '')
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
@@ -122,6 +122,8 @@ function EditProfile() {
       setUpdatingProfile(false);
     }
   };
+
+  if (loading) return <div className='w-full p-4 text-center '><Loader /></div>
 
 
   return (

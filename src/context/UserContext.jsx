@@ -1,16 +1,15 @@
-import React, { createContext, useState, useEffect, useContext, useMemo } from 'react';
+import React, { createContext, useState, useEffect, useContext, useMemo, useLayoutEffect } from 'react';
 import { getCurrentUser } from '../lib/appwrite/api';
-import Loader2 from '../components/Loader2';
 
 
 const UserContext = createContext();
 const ThemeContext = createContext();
 
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [theme, setTheme] = useState('dark');
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+  const [loading, setLoading] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(!!user);
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
 
   const checkAuthUser = async () => {
     setLoading(true);
@@ -44,27 +43,18 @@ const UserProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem('user'));
-    if (userData !== null) {
-      setUser(userData);
-      setIsAuthenticated(true);
-      setLoading(false);
-      return;
-    } checkAuthUser();
-  }, []);
-
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      setTheme(savedTheme);
+    if (isAuthenticated && user) {
+      checkAuthUser();
     }
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.documentElement.classList.remove('light', 'dark');
     document.documentElement.classList.add(theme);
-    localStorage.setItem('theme', theme);
+
+    if (localStorage.getItem('theme') !== theme) {
+      localStorage.setItem('theme', theme);
+    }
   }, [theme]);
 
   const userData = useMemo(() => ({
@@ -86,7 +76,7 @@ const UserProvider = ({ children }) => {
   return (
     <ThemeContext.Provider value={themeData}>
       <UserContext.Provider value={userData}>
-        {loading ? <div className='grid h-screen place-content-center dark:bg-[#0d1117]'><Loader2 />  </div> : children}
+        {children}
       </UserContext.Provider>
     </ThemeContext.Provider>
   );
