@@ -5,7 +5,7 @@ import { Logo } from './index'
 function Footer() {
     return (
         <footer className="  border-t-8 border-indigo-400 rounded-t-lg bg-gray-50 dark:bg-[#151b23] color">
-            <div className="w-full max-w-screen-xl p-4 py-6 mx-auto lg:py-8">
+            <div className="w-full max-w-screen-xl p-4 py-6 mx-auto sm:px-6 lg:px-8 lg:py-8">
                 <div className="md:flex md:justify-between">
                     <div className="mb-6 md:mb-0">
                         <Logo />
@@ -61,11 +61,7 @@ function Footer() {
                 <hr className="my-6 border-gray-300 sm:mx-auto lg:my-8 dark:border-[#30363D] transition-colors" />
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <span className="text-sm light_color sm:text-center">
-                        © 2024
-                        <Link to='#' className="hover:underline">
-                            hemant
-                        </Link>
-                        . All Rights Reserved.
+                        © 2024  <Link to="https://github.com/hemantyadav10/Appwrite-Blog-App" target='_blank' className="hover:underline">InfiniteInk</Link>. All Rights Reserved.
                     </span>
                     <div className="flex mt-4 space-x-5 sm:justify-center sm:mt-0">
                         <Link to="#" className="light_color hover:opacity-80">
@@ -112,7 +108,7 @@ function Footer() {
                             </svg>
                             <span className="sr-only">Twitter page</span>
                         </Link>
-                        <Link to="#" className="light_color hover:opacity-80">
+                        <Link to="https://github.com/hemantyadav10" target='_blank' className="light_color hover:opacity-80">
                             <svg
                                 className="w-4 h-4"
                                 ariahidden="true"

@@ -29,9 +29,9 @@ function Profile() {
 
   return (
     <>
-      <div className='flex justify-center min-h-[calc(100vh-72px)] w-full mt-[72px] gap-4 '>
+      <div className='flex justify-center min-h-[calc(100vh-72px)] w-full mt-[72px] gap-4 max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8'>
         {/* left section */}
-        <div className='flex flex-col w-full gap-6 md:gap-8  max-w-[750px]  md:py-6 px-6 py-4'>
+        <div className='flex flex-col w-full gap-6 px-6 py-4 md:gap-8 md:py-6'>
           <div className='flex flex-col items-center justify-center w-full gap-4 lg:hidden'>
             <ProfileDetails
               profileImage={profileDetails?.imageUrl}
@@ -100,7 +100,7 @@ function Profile() {
           </div>
         </div >
         {/* right section */}
-        < div className=' hidden px-8 border-l min-w-[400px] lg:block w-[400px] py-6 dark:border-l-[#30363D] transition-colors' >
+        < div className=' hidden px-8 border-l min-w-[400px] lg:block w-[300px] py-6 dark:border-l-[#30363D] transition-colors' >
           <div className='sticky flex flex-col gap-4 top-[96px]'>
             <ProfileDetails
               profileImage={profileDetails?.imageUrl}

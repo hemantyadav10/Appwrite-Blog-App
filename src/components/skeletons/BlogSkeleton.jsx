@@ -2,7 +2,7 @@ import React from 'react'
 
 function BlogSkeleton() {
   return (
-    <div className='w-full  max-w-[700px] flex flex-col gap-10 animate-customPulse'>
+    <div className='flex flex-col w-full max-w-screen-md gap-10 animate-customPulse'>
       <div className='h-12 bg-gray-200 w-[80%] rounded-md dark:bg-gray-700'></div>
       <div className='flex gap-4 '>
         <div className='bg-gray-200 rounded-full size-10 dark:bg-gray-700'>

@@ -37,7 +37,7 @@ function Categories() {
   }, [inView, hasNextPage]);
 
   return (
-    <div className='flex flex-col items-center flex-1 w-full gap- sm:mt-[71px]  mt-16 gap-5 md:px-14 xl:px-24 py-10 px-5 grid-cols-6 '>
+    <div className='flex flex-col items-center flex-1 w-full gap- sm:mt-[71px]  mt-16 gap-5 py-10 grid-cols-6 max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8'>
       <div className='flex flex-col w-full gap-12 lg:gap-12  dark:text-[#E6EDF3] lg:pb-0 lg:grid lg:grid-cols-6 '>
         <div className='flex flex-col gap-12 lg:col-span-4'>
           <div className='flex flex-col w-full dark:text-[#E6EDF3] text-white   gap-4 transition-colors  justify-center '>

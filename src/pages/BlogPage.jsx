@@ -69,7 +69,7 @@ function BlogPage() {
   }
 
   return (
-    <div className='flex flex-col sm:mt-[72px] mt-16 min-h-[calc(100vh-72px)]  transition-color'>
+    <div className='flex flex-col sm:mt-[72px] mt-16 min-h-[calc(100vh-72px)] transition-color'>
       <div className='relative hidden w-max lg:flex'>
         <button
           aria-label='back button'
@@ -83,7 +83,7 @@ function BlogPage() {
         <Tooltip content='Go back' />
       </div>
       <div className='flex flex-col items-center flex-1 gap-6 p-5 pb-20 lg:pt-0 '>
-        <div className='w-full  max-w-[700px] flex flex-col gap-6 md:gap-8  '>
+        <div className='flex flex-col w-full max-w-screen-md gap-6 md:gap-8 '>
           <div className='space-y-2'>
             <div className='w-max'>
               <Link to={`/explore?category=${blogData?.category.toLowerCase()} `} >

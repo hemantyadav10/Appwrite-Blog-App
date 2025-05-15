@@ -8,9 +8,9 @@ function Home() {
   const { data, isLoading: loadingTrendingBlogs, error: errorLoadingTrendingBlogs } = usegetTrendingBlogs();
 
   return (
-    <div className='flex flex-col items-center flex-1 w-full mb-16 sm:mt-[71px]  mt-16 gap-12 md:gap-0'>
+    <div className='flex flex-col items-center flex-1 w-full mb-16 sm:mt-[71px] mt-16 gap-12 md:gap-0 max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8'>
       <HomeCoverSection />
-      <div className='flex flex-col w-full gap-12 lg:gap-12 md:p-14 xl:px-24 dark:text-[#E6EDF3] lg:pb-0 lg:grid lg:grid-cols-6 px-5 '>
+      <div className='flex flex-col w-full gap-12 lg:gap-12 md:py-14  dark:text-[#E6EDF3] lg:pb-0 lg:grid lg:grid-cols-6 '>
         <div className='flex flex-col gap-5 lg:col-span-4'>
           <div className='flex items-center justify-between w-full py-1 text-2xl font-bold text-transparent md:text-3xl bg-clip-text dark:bg-gradient-to-b dark:from-neutral-50 dark:to-neutral-400 bg-gradient-to-b from-gray-500 to-black'>
             <p className='flex gap-4'>

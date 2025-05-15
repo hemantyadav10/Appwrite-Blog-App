@@ -13,7 +13,7 @@ function Tags() {
 
   return (
     <div className=' pt-[88px] sm:pt-24 p-6 items-center flex flex-col pb-24 min-h-screen '>
-      <div className='w-full  max-w-[1000px] flex flex-col gap-6 md:gap-8  '>
+      <div className='flex flex-col w-full max-w-screen-xl gap-6 md:gap-8 '>
         <p className='text-4xl font-bold text-center color'>#{tag}</p>
         <div className=''>
           <hr className='dark:border-[#30363D] transition-colors' />
